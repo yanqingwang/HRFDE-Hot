@@ -8,8 +8,8 @@ import { REPO_ROOT } from "@aihot/backend/config";
 import { closeDb, sql } from "@aihot/backend/db";
 import { composeDaily, dueDaily } from "@aihot/backend/reports/compose";
 import { dailyWithNotes } from "@aihot/backend/publication/reports";
-import { beijingStamp, beijingWeekday } from "@aihot/contracts/time";
-import { EDITION_WHEN, SITE } from "@aihot/site";
+import { beijingAt, beijingStamp, beijingWeekday } from "@aihot/contracts/time";
+import { EDITION_TIMES, EDITION_WHEN, SITE } from "@aihot/site";
 
 /** 日报里的一条：公开读取层（publication/reports.ts）的 v1 结构。 */
 interface Entry {
@@ -33,11 +33,17 @@ try {
   const reason = error instanceof Error ? error.message : String(error);
   if (reason.includes("nothing judged")) {
     // 空窗时把库里的计数打出来：articles 少说明没抓到，publications/selected 少说明模型那一步没过。
-    const counts = await sql<{ articles: string; publications: string; selected: string }[]>`
+    const end = beijingAt(date, EDITION_TIMES.daily);
+    const start = new Date(end.getTime() - 86400000);
+    const counts = await sql<{ articles: string; publications: string; selected: string; inWindow: string; newest: string; oldest: string }[]>`
       SELECT (SELECT count(*) FROM articles)::text AS articles,
              (SELECT count(*) FROM publications)::text AS publications,
-             (SELECT count(*) FROM publications WHERE selected)::text AS selected`;
-    console.log(JSON.stringify({ level: "warn", msg: "quiet window, no report", date, reason, ...counts[0] }));
+             (SELECT count(*) FROM publications WHERE selected)::text AS selected,
+             (SELECT count(*) FROM publications WHERE timeline_at >= ${start} AND timeline_at <= ${end})::text AS "inWindow",
+             (SELECT coalesce(max(timeline_at)::text, '-') FROM publications) AS newest,
+             (SELECT coalesce(min(timeline_at)::text, '-') FROM publications) AS oldest`;
+    console.log(JSON.stringify({ level: "warn", msg: "quiet window, no report", date, reason,
+      windowStart: start.toISOString(), windowEnd: end.toISOString(), ...counts[0] }));
     await closeDb();
     process.exit(0);
   }
