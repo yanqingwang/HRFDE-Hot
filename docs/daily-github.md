@@ -19,9 +19,9 @@ runner 上把整条流水线跑一遍，把当天日报写进仓库的 `Reports/
 
 | Secret | 用途 |
 |---|---|
-| `LLM_API_KEY` | 模型调用（ SiliconFlow）。地址和模型名写在 workflow 的 env 里：`LLM_BASE_URL`、`LLM_MODEL` |
+| `SILICONFLOW_API_KEY` | 模型调用（SiliconFlow），workflow 里接到 `LLM_API_KEY`。地址和模型名写在 workflow 的 env：`LLM_BASE_URL`、`LLM_MODEL` |
 
-没配 `LLM_API_KEY` 时采集照常，但没有评分和写作，日报不会生成。
+没配这个 secret 时采集照常，但没有评分和写作，日报不会生成。
 
 ## 报告为什么在文件里
 
