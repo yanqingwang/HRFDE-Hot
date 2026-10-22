@@ -47,6 +47,7 @@ export const CATEGORY_TAGS = [
 /** 可选的主题标签。 */
 export const TOPIC_TAGS = [
   "Agent", "编码", "推理", "多模态", "语音", "视频", "图像生成", "RAG", "端侧", "数据/训练", "搜索", "部署/工程", "开源生态", "具身智能", "MCP/工具调用",
+  "HRIS/HCM", "招聘/人才获取", "员工体验", "人力分析", "薪酬/福利", "AI in HR", "FDE/前沿部署", "招投标/采购", "合规/劳动法规",
 ] as const;
 
 /** 可选的实体标签（公司、机构、平台）。 */
@@ -92,6 +93,18 @@ export const ENTITIES: Record<string, { name: string; displayTag: string | null;
   "hugging-face": { name: "Hugging Face", displayTag: "Hugging Face", aliases: ["Hugging Face"], orgNames: ["Hugging Face", "HuggingFace"] },
   cursor: { name: "Cursor", displayTag: null, aliases: ["Cursor", "Anysphere"], orgNames: ["Cursor"] },
   openrouter: { name: "OpenRouter", displayTag: null, aliases: ["OpenRouter"], orgNames: ["OpenRouter"] },
+
+  // ── HR 科技：厂商、平台与从业者 ──────────────────────────────────────────────────────────
+  sap: { name: "SAP / SuccessFactors", displayTag: "SAP", aliases: ["SAP", "SuccessFactors", "SAP SuccessFactors"], orgNames: ["SAP", "SAP SuccessFactors"], otherNames: ["SAP News"] },
+  workday: { name: "Workday", displayTag: "Workday", aliases: ["Workday", "Workday HCM"], orgNames: ["Workday"] },
+  oracle: { name: "Oracle / Oracle HCM", displayTag: "Oracle", aliases: ["Oracle", "Oracle HCM", "Oracle Fusion"], orgNames: ["Oracle"] },
+  ukg: { name: "UKG", displayTag: "UKG", aliases: ["UKG", "Ultimate Kronos"], orgNames: ["UKG"] },
+  servicenow: { name: "ServiceNow", displayTag: "ServiceNow", aliases: ["ServiceNow"], orgNames: ["ServiceNow"] },
+  eightfold: { name: "Eightfold AI", displayTag: "Eightfold", aliases: ["Eightfold", "Eightfold AI"], orgNames: ["Eightfold"] },
+  beisen: { name: "北森", displayTag: "北森", aliases: ["北森", "Beisen"], orgNames: ["北森", "北森云计算"] },
+  moka: { name: "Moka", displayTag: "Moka", aliases: ["Moka", "MokaHR", "希瑞亚斯"], orgNames: ["Moka"] },
+  palantir: { name: "Palantir", displayTag: "Palantir", aliases: ["Palantir", "Foundry", "AIP"], orgNames: ["Palantir"] },
+  "josh-bersin": { name: "Josh Bersin", displayTag: null, aliases: ["Josh Bersin", "Bersin"], orgNames: ["Josh Bersin Company"] },
 };
 
 /**
@@ -131,6 +144,15 @@ export const IDENTITY_LEXICON: ReadonlyArray<{ id: string; name: string; pattern
   { id: "apple", name: "Apple AI", patterns: [/\bapple\s?(intelligence|silicon|ai)\b|苹果(智能|\s?AI)/i] },
   { id: "amazon", name: "Amazon / AWS", patterns: [/amazon|\baws\b|亚马逊/i] },
   { id: "baidu", name: "百度文心", patterns: [/百度|baidu|文心|\bernie\s?bot\b/i] },
+  { id: "sap", name: "SAP / SuccessFactors", patterns: [/sap|success\s?factors/i] },
+  { id: "workday", name: "Workday", patterns: [/workday/i] },
+  { id: "oracle", name: "Oracle HCM", patterns: [/oracle\s?(hcm|fusion|cloud)?|甲骨文/i] },
+  { id: "ukg", name: "UKG", patterns: [/ukg|kronos/i] },
+  { id: "servicenow", name: "ServiceNow", patterns: [/service\s?now/i] },
+  { id: "eightfold", name: "Eightfold AI", patterns: [/eightfold/i] },
+  { id: "beisen", name: "北森", patterns: [/北森|beisen/i] },
+  { id: "moka", name: "Moka", patterns: [/moka(?:hr)?/i] },
+  { id: "palantir", name: "Palantir", patterns: [/palantir|foundry/i] },
 ];
 
 /** 这些域名上的文章，发布方就是对应的公司（托管平台如 GitHub、arXiv 不算）。 */
@@ -146,6 +168,15 @@ export const PUBLISHER_DOMAINS: ReadonlyArray<{ entityId: string; domains: reado
   { entityId: "qwen", domains: ["qwen.ai"] },
   { entityId: "cursor", domains: ["cursor.com"] },
   { entityId: "openrouter", domains: ["openrouter.ai"] },
+  { entityId: "sap", domains: ["news.sap.com", "sap.com"] },
+  { entityId: "workday", domains: ["workday.com"] },
+  { entityId: "oracle", domains: ["oracle.com"] },
+  { entityId: "ukg", domains: ["ukg.com"] },
+  { entityId: "servicenow", domains: ["servicenow.com"] },
+  { entityId: "eightfold", domains: ["eightfold.ai"] },
+  { entityId: "beisen", domains: ["beisen.com"] },
+  { entityId: "moka", domains: ["mokahr.com"] },
+  { entityId: "palantir", domains: ["palantir.com"] },
 ];
 
 /** 原文里的这些写法也算提到了对应公司。 */

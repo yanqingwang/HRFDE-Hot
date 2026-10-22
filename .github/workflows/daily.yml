@@ -1,0 +1,88 @@
+name: Daily
+
+# 每天北京 09:00（UTC 01:00）在 GitHub 上跑一遍完整流水线：拉库建表 → 导入信源 → 采集 →
+# 理解/评分/归组（worker，模型走 SiliconFlow）→ 成刊 → 把日报 Markdown 追加到 Reports/<年-月>.md 并提交。
+#
+# 数据库是 runner 上的 postgres 服务，每次新建：历史不靠库沉淀，靠仓库里的 Reports 文件。
+# 需要仓库 secret：LLM_API_KEY（模型）；模型地址和模型名写在下面的 env 里。
+
+on:
+  schedule:
+    - cron: "0 1 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: daily
+  cancel-in-progress: false
+
+jobs:
+  daily:
+    runs-on: ubuntu-latest
+    timeout-minutes: 35
+    permissions:
+      contents: write
+    services:
+      postgres:
+        image: postgres:17-alpine
+        env:
+          POSTGRES_PASSWORD: ci
+          POSTGRES_DB: hrfde_daily
+        ports: ["5432:5432"]
+        options: >-
+          --health-cmd "pg_isready -U postgres" --health-interval 5s --health-timeout 5s --health-retries 30
+    env:
+      DATABASE_URL: postgres://postgres:ci@127.0.0.1:5432/hrfde_daily
+      SITE_URL: http://127.0.0.1:3000
+      API_BASE_URL: http://127.0.0.1:3001
+      SESSION_SECRET: daily-session-secret-0123456789abcdef
+      IMG_PROXY_SIGN_SECRET: daily-img-secret-0123456789abcdef
+      COLLECT_ENABLED: "true"
+      MODEL_CALLS_ENABLED: "true"
+      LLM_BASE_URL: https://api.siliconflow.cn/v1
+      LLM_MODEL: Qwen/Qwen2.5-72B-Instruct
+      LLM_API_KEY: ${{ secrets.LLM_API_KEY }}
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
+        with:
+          node-version: 24
+          package-manager-cache: false
+
+      - name: Install
+        run: npm ci --no-audit --no-fund
+      - name: Migrate and seed
+        run: |
+          node scripts/migrate.ts
+          node scripts/seed.ts
+
+      # 采集和内容处理都靠 worker 的排程：sources.schedule 每分钟收到期信源，content.sweep
+      # 每 5 分钟处理新条目（理解、评分、翻译），reports.compose 每半小时成刊。给足一轮的时间后
+      # 发 SIGTERM，worker 会等队列里的任务收尾再退出。
+      - name: Collect and process
+        run: |
+          node apps/worker/src/main.ts > "$RUNNER_TEMP/worker.log" 2>&1 &
+          WORKER_PID=$!
+          sleep 900
+          kill -TERM "$WORKER_PID" || true
+          wait "$WORKER_PID" 2>/dev/null || true
+      - name: Worker log
+        if: always()
+        run: tail -n 60 "$RUNNER_TEMP/worker.log" 2>/dev/null || true
+
+      - name: Write the report into the repo
+        run: node scripts/daily.ts
+
+      - name: Commit
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add Reports
+          if git diff --cached --quiet; then
+            echo "no report change"
+            exit 0
+          fi
+          git commit -m "chore: 日报 $(date -u +%F)"
+          git push
