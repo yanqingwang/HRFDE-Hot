@@ -5,7 +5,7 @@
 import { appendFileSync, existsSync, mkdirSync, writeFileSync } from "node:fs";
 import path from "node:path";
 import { REPO_ROOT } from "@aihot/backend/config";
-import { closeDb } from "@aihot/backend/db";
+import { closeDb, sql } from "@aihot/backend/db";
 import { composeDaily, dueDaily } from "@aihot/backend/reports/compose";
 import { dailyWithNotes } from "@aihot/backend/publication/reports";
 import { beijingStamp, beijingWeekday } from "@aihot/contracts/time";
@@ -32,7 +32,12 @@ try {
 } catch (error) {
   const reason = error instanceof Error ? error.message : String(error);
   if (reason.includes("nothing judged")) {
-    console.log(JSON.stringify({ level: "warn", msg: "quiet window, no report", date, reason }));
+    // 空窗时把库里的计数打出来：articles 少说明没抓到，publications/selected 少说明模型那一步没过。
+    const counts = await sql<{ articles: string; publications: string; selected: string }[]>`
+      SELECT (SELECT count(*) FROM articles)::text AS articles,
+             (SELECT count(*) FROM publications)::text AS publications,
+             (SELECT count(*) FROM publications WHERE selected)::text AS selected`;
+    console.log(JSON.stringify({ level: "warn", msg: "quiet window, no report", date, reason, ...counts[0] }));
     await closeDb();
     process.exit(0);
   }

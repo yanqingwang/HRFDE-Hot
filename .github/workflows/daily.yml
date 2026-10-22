@@ -72,7 +72,7 @@ jobs:
           wait "$WORKER_PID" 2>/dev/null || true
       - name: Worker log
         if: always()
-        run: tail -n 60 "$RUNNER_TEMP/worker.log" 2>/dev/null || true
+        run: tail -n 400 "$RUNNER_TEMP/worker.log" 2>/dev/null || true
 
       - name: Write the report into the repo
         run: node scripts/daily.ts
