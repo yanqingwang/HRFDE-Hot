@@ -4,7 +4,7 @@ name: Daily
 # 理解/评分/归组（worker，模型走 SiliconFlow）→ 成刊 → 把日报 Markdown 追加到 Reports/<年-月>.md 并提交。
 #
 # 数据库是 runner 上的 postgres 服务，每次新建：历史不靠库沉淀，靠仓库里的 Reports 文件。
-# 需要仓库 secret：LLM_API_KEY（模型）；模型地址和模型名写在下面的 env 里。
+# 需要仓库 secret：SILICONFLOW_API_KEY（模型）；模型地址、模型名和额外参数写在下面的 env 里。
 
 on:
   schedule:
