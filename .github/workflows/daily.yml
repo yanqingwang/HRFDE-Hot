@@ -42,7 +42,9 @@ jobs:
       COLLECT_ENABLED: "true"
       MODEL_CALLS_ENABLED: "true"
       LLM_BASE_URL: https://api.siliconflow.cn/v1
-      LLM_MODEL: Qwen/Qwen2.5-72B-Instruct
+      LLM_MODEL: Qwen/Qwen3-8B
+      # Qwen3 默认带思考；结构化打分和抽取要的是短而确定的输出，关掉更快也更好解析。
+      LLM_EXTRA_JSON: '{"enable_thinking": false}'
       LLM_API_KEY: ${{ secrets.SILICONFLOW_API_KEY }}
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
