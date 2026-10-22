@@ -20,8 +20,18 @@ runner 上把整条流水线跑一遍，把当天日报写进仓库的 `Reports/
 | Secret | 用途 |
 |---|---|
 | `SILICONFLOW_API_KEY` | 模型调用（SiliconFlow），workflow 里接到 `LLM_API_KEY`。地址和模型名写在 workflow 的 env：`LLM_BASE_URL`、`LLM_MODEL` |
+| `DATABASE_URL` | 外部 PostgreSQL。没配就用 runner 上的 postgres 服务容器（见下） |
 
-没配这个 secret 时采集照常，但没有评分和写作，日报不会生成。
+没配 `SILICONFLOW_API_KEY` 时采集照常，但没有评分和写作，日报不会生成。
+
+## 为什么必须有外部库
+
+框架把每个信源的**第一次采集**标成 `backfill = first-import`，成刊时 `judgedReports()`
+排除 backfill 的条目（历史归档不该灌进第一期）。用 runner 上每次新建的库，每个源永远都是
+“首次导入”，日报窗口里已判定条数永远是 0，出不了刊。
+
+外部库上只有第一次跑是首采（那一期会是空的），从第二次起正常出日报，顺带拿到跨天去重和历史热度。
+Neon、Supabase 这类免费额度就够用；配好 `DATABASE_URL` 后，workflow 会忽略内置的 postgres 服务容器。
 
 ## 报告为什么在文件里
 

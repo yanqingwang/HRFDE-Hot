@@ -34,7 +34,10 @@ jobs:
         options: >-
           --health-cmd "pg_isready -U postgres" --health-interval 5s --health-timeout 5s --health-retries 30
     env:
-      DATABASE_URL: postgres://postgres:ci@127.0.0.1:5432/hrfde_daily
+      # 配了 DATABASE_URL（外部 Postgres）就用它，没配就退回 runner 上的 postgres 服务容器。
+      # 注意：内置服务每次新建，每个信源都是“首次导入”，条目会被标成 backfill 而不进日报——
+      # 要真正出刊必须配外部库（第二天起生效）。
+      DATABASE_URL: ${{ secrets.DATABASE_URL || 'postgres://postgres:ci@127.0.0.1:5432/hrfde_daily' }}
       SITE_URL: http://127.0.0.1:3000
       API_BASE_URL: http://127.0.0.1:3001
       SESSION_SECRET: daily-session-secret-0123456789abcdef
