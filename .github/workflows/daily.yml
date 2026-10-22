@@ -79,9 +79,10 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add Reports
+          mkdir -p Reports
+          git add -- Reports
           if git diff --cached --quiet; then
-            echo "no report change"
+            echo "::warning::当天没有入选内容，没写出日报（信源静默或模型未生效）"
             exit 0
           fi
           git commit -m "chore: 日报 $(date -u +%F)"
