@@ -31,6 +31,8 @@ runner 上把整条流水线跑一遍，把当天日报写进仓库的 `Reports/
 “首次导入”，日报窗口里已判定条数永远是 0，出不了刊。
 
 外部库上只有第一次跑是首采（那一期会是空的），从第二次起正常出日报，顺带拿到跨天去重和历史热度。
+那天就想看到一期，可以把首采标记清掉再成刊（`UPDATE articles SET backfill = false WHERE backfill;`
+和 publications 同），因为当天抓到的本来就是近期条目、不是历史归档——只对这一次生效。
 Neon、Supabase 这类免费额度就够用；配好 `DATABASE_URL` 后，workflow 会忽略内置的 postgres 服务容器。
 
 ## 报告为什么在文件里
