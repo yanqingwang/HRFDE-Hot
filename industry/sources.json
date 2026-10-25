@@ -168,6 +168,182 @@
       ],
       "site_fulltext": false,
       "syndicate_fulltext": false
+    },
+    {
+      "id": "rss-ere-media",
+      "name": "ERE Media",
+      "kind": "rss",
+      "config": {
+        "feedUrl": "https://www.ere.net/feed/",
+        "_aihot": {
+          "initialBackfillLimit": 10
+        }
+      },
+      "tier": "T2",
+      "owner_entity_id": null,
+      "participation_mode": "editorial",
+      "interval_minutes": 120,
+      "tags": [
+        "媒体"
+      ],
+      "site_fulltext": false,
+      "syndicate_fulltext": false
+    },
+    {
+      "id": "rss-workology",
+      "name": "Workology",
+      "kind": "rss",
+      "config": {
+        "feedUrl": "https://workology.com/feed/",
+        "_aihot": {
+          "initialBackfillLimit": 10
+        }
+      },
+      "tier": "T2",
+      "owner_entity_id": null,
+      "participation_mode": "editorial",
+      "interval_minutes": 360,
+      "tags": [
+        "媒体",
+        "观点"
+      ],
+      "site_fulltext": false,
+      "syndicate_fulltext": false
+    },
+    {
+      "id": "rss-icims-blog",
+      "name": "iCIMS Blog",
+      "kind": "rss",
+      "config": {
+        "feedUrl": "https://www.icims.com/feed/",
+        "_aihot": {
+          "initialBackfillLimit": 8
+        }
+      },
+      "tier": "T1",
+      "owner_entity_id": "icims",
+      "participation_mode": "editorial",
+      "interval_minutes": 360,
+      "tags": [
+        "厂商"
+      ],
+      "site_fulltext": false,
+      "syndicate_fulltext": false
+    },
+    {
+      "id": "rss-gartner-news",
+      "name": "Google News：Gartner HR",
+      "kind": "rss",
+      "config": {
+        "feedUrl": "https://news.google.com/rss/search?q=%22Gartner%22%20(HR%20OR%20%22human%20resources%22%20OR%20recruiting)&hl=en-US&gl=US&ceid=US:en",
+        "acceptLanguage": "en",
+        "_aihot": {
+          "initialBackfillLimit": 12
+        }
+      },
+      "tier": "T2",
+      "owner_entity_id": null,
+      "participation_mode": "editorial",
+      "interval_minutes": 180,
+      "tags": [
+        "研究机构",
+        "聚合"
+      ],
+      "site_fulltext": false,
+      "syndicate_fulltext": false
+    },
+    {
+      "id": "json-hn-recruiting",
+      "name": "HN：recruiting",
+      "kind": "json_list",
+      "config": {
+        "url": "https://hn.algolia.com/api/v1/search?query=recruiting&tags=story",
+        "mode": "json_api",
+        "itemsPath": "hits",
+        "titlePaths": [
+          "title"
+        ],
+        "summaryPaths": [
+          "story_text"
+        ],
+        "urlTemplate": "https://news.ycombinator.com/item?id={raw:objectID}",
+        "publishedAtPath": "created_at",
+        "externalIdPath": "objectID",
+        "_aihot": {
+          "initialBackfillLimit": 10
+        }
+      },
+      "tier": "T2",
+      "owner_entity_id": null,
+      "participation_mode": "editorial",
+      "interval_minutes": 360,
+      "tags": [
+        "社区"
+      ],
+      "site_fulltext": false,
+      "syndicate_fulltext": false
+    },
+    {
+      "id": "json-hn-payroll",
+      "name": "HN：payroll",
+      "kind": "json_list",
+      "config": {
+        "url": "https://hn.algolia.com/api/v1/search?query=payroll&tags=story",
+        "mode": "json_api",
+        "itemsPath": "hits",
+        "titlePaths": [
+          "title"
+        ],
+        "summaryPaths": [
+          "story_text"
+        ],
+        "urlTemplate": "https://news.ycombinator.com/item?id={raw:objectID}",
+        "publishedAtPath": "created_at",
+        "externalIdPath": "objectID",
+        "_aihot": {
+          "initialBackfillLimit": 10
+        }
+      },
+      "tier": "T2",
+      "owner_entity_id": null,
+      "participation_mode": "editorial",
+      "interval_minutes": 360,
+      "tags": [
+        "社区"
+      ],
+      "site_fulltext": false,
+      "syndicate_fulltext": false
+    },
+    {
+      "id": "json-hn-workday",
+      "name": "HN：Workday",
+      "kind": "json_list",
+      "config": {
+        "url": "https://hn.algolia.com/api/v1/search?query=workday&tags=story",
+        "mode": "json_api",
+        "itemsPath": "hits",
+        "titlePaths": [
+          "title"
+        ],
+        "summaryPaths": [
+          "story_text"
+        ],
+        "urlTemplate": "https://news.ycombinator.com/item?id={raw:objectID}",
+        "publishedAtPath": "created_at",
+        "externalIdPath": "objectID",
+        "_aihot": {
+          "initialBackfillLimit": 10
+        }
+      },
+      "tier": "T2",
+      "owner_entity_id": null,
+      "participation_mode": "editorial",
+      "interval_minutes": 360,
+      "tags": [
+        "社区"
+      ],
+      "site_fulltext": false,
+      "syndicate_fulltext": false
     }
   ]
 }

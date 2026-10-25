@@ -100,6 +100,7 @@ export const ENTITIES: Record<string, { name: string; displayTag: string | null;
   oracle: { name: "Oracle / Oracle HCM", displayTag: "Oracle", aliases: ["Oracle", "Oracle HCM", "Oracle Fusion"], orgNames: ["Oracle"] },
   ukg: { name: "UKG", displayTag: "UKG", aliases: ["UKG", "Ultimate Kronos"], orgNames: ["UKG"] },
   servicenow: { name: "ServiceNow", displayTag: "ServiceNow", aliases: ["ServiceNow"], orgNames: ["ServiceNow"] },
+  icims: { name: "iCIMS", displayTag: null, aliases: ["iCIMS"], orgNames: ["iCIMS"] },
   eightfold: { name: "Eightfold AI", displayTag: "Eightfold", aliases: ["Eightfold", "Eightfold AI"], orgNames: ["Eightfold"] },
   beisen: { name: "北森", displayTag: "北森", aliases: ["北森", "Beisen"], orgNames: ["北森", "北森云计算"] },
   moka: { name: "Moka", displayTag: "Moka", aliases: ["Moka", "MokaHR", "希瑞亚斯"], orgNames: ["Moka"] },
