@@ -11,7 +11,7 @@ jobs:
         run: |
           psql "$DATABASE_URL" -P pager=off -c "
             SELECT s.id,
-                   count(*) FILTER (WHERE a.fetched_at > now() - interval '6 hours') AS fetched_6h,
+                   count(*) FILTER (WHERE a.discovered_at > now() - interval '6 hours') AS fetched_6h,
                    count(an.id) FILTER (WHERE an.created_at > now() - interval '6 hours') AS analyzed_6h,
                    count(an.id) FILTER (WHERE an.created_at > now() - interval '6 hours' AND an.relevance = 'pass') AS pass_6h,
                    count(an.id) FILTER (WHERE an.created_at > now() - interval '6 hours' AND an.selected) AS selected_6h
