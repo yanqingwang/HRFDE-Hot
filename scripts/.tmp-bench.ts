@@ -6,14 +6,18 @@ import { promptText } from "../packages/backend/src/editorial/prompts.ts";
 
 const PRE = promptText("prefilter");
 const SCORE = promptText("selection-score");
-const MODELS = (process.env.BENCH_MODELS ?? "Qwen/Qwen3-8B,Qwen/Qwen3.5-4B,THUDM/GLM-4-9B-0414,Qwen/Qwen2.5-7B-Instruct").split(",");
+const MODELS = (process.env.BENCH_MODELS ?? "Qwen/Qwen3-8B,THUDM/GLM-4-9B-0414").split(",");
 const BASE = process.env.LLM_BASE_URL ?? "https://api.siliconflow.cn/v1";
 const KEY = process.env.LLM_API_KEY!;
 
 const ARTICLES = [
-  { id: "hrdive", title: "DOL finalizes sweeping pharmacy benefit manager disclosure rule", tier: "T2", url: "https://www.hrdive.com/news/pbm-transparency-final-rule-labor-department-employer/873318/" },
+  { id: "hrdive-pbm", title: "DOL finalizes sweeping pharmacy benefit manager disclosure rule", tier: "T2", url: "https://www.hrdive.com/news/pbm-transparency-final-rule-labor-department-employer/873318/" },
+  { id: "hrdive-karen", title: "Week in review: ‘Karen’ comment doesn’t show discrimination, judge says", tier: "T2", url: "https://www.hrdive.com/news/karen-comment-doesnt-show-discrimination/873355/" },
   { id: "littler", title: "Ninth Circuit Holds that California’s Captive-Audience Ban Violates the First Amendment", tier: "T2", url: "https://www.littler.com/news-analysis/asap/ninth-circuit-holds-californias-captive-audience-ban-violates-first-amendment" },
   { id: "hiringlab", title: "Q3 2026 Employment Cost Index: Rising Healthcare Costs Keep Haunting Employers", tier: "T2", url: "https://hiringlab.indeed.com/2026/10/30/q3-2026-employment-cost-index/" },
+  { id: "personneltoday", title: "Worker excused from using AI on basis of Humanist beliefs", tier: "T2", url: "https://www.personneltoday.com/hr/usa-worker-ai-humanist-artificial-intelligence/" },
+  { id: "hrzone", title: "Who really sees the work? A practical guide to continuous feedback", tier: "T2", url: "https://hrzone.com/who-really-sees-the-work-a-practical-guide-to-continuous-feedback/" },
+  { id: "palantir", title: "Early Talent Hiring at Palantir", tier: "T1", url: "https://blog.palantir.com/early-talent-hiring-at-palantir-c7388f1fdab7" },
   { id: "hrtechchina", title: "上海2026社保公积金新标准正式落地：最低基数7546元，7月起需补差", tier: "T2", url: "https://www.hrtechchina.com/76421.html" },
 ];
 
