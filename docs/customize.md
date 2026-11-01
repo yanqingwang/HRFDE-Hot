@@ -1,6 +1,6 @@
 # 把它改成你的行业
 
-这份仓库默认是一个“AI 行业”的示例站：示范信源是一批公开的 AI 资讯源，精选口味是 AIHOT 在 AI 领域调了很久的那一套。要把它变成“法律热点”“HR 热点”“黄金热点”，要改的东西几乎都在 [`site/`](../site/)（这个站自己的名字、文案、品牌和页面）和 [`industry/`](../industry/)（行业的分类、信源、提示词和门槛）这两个文件夹里，代码基本不用动。
+这份仓库是 HRFDE Hot：信源、分类和提示词都围绕 HR、FDE（Forward Deployed Engineer）与职位变化。要把它变成别的行业，要改的东西几乎都在 [`site/`](../site/)（这个站自己的名字、文案、品牌和页面）和 [`industry/`](../industry/)（行业的分类、信源、提示词和门槛）这两个文件夹里，代码基本不用动。
 
 如果你用 Claude Code、Codex 这类 Agent，可以把下面这段直接发给它，然后回答它的问题：
 
@@ -24,7 +24,7 @@
 - `interfaceVersion`：公开接口（MCP、OpenAPI、`llms.txt`）的版本号，只升不降；改了接口里已有的字段或含义时升主版本。
 - `crawlerName`：抓取信源时报的名字，别用别人的站名。
 - `contactEmail`：对外联系邮箱（选填），填了就在 `llms.txt` 和给 Agent 的使用说明里写成授权联系方式。
-- `footerNote`：关于页底部的一行小字。默认是一行框架署名“由 AIHOT 开源框架驱动”，可以留也可以删（设成 `null`）。
+- `footerNote`：关于页底部的一行小字。默认是一行框架署名“由开源热点框架驱动”，可以留也可以删（设成 `null`）。
 - `icp`、`psb`：中国大陆网站的 ICP 和公安备案号，填了就显示在页脚，并链接到对应备案记录。
 - `github`：源码仓库的地址（选填），填了就在侧栏和“我的”页底部显示“GitHub 开源”。
 - `llmsIntro`：`llms.txt` 里一句话介绍下面的一段详细介绍（选填）。
@@ -104,7 +104,7 @@
 
 ## 5. 门槛与校准：`industry/selection.ts`
 
-两次评分之和 ≥ 2 × 门槛才够分（够分的还要过归组时的去重，见 [精选与校准](selection.md)）。默认门槛（T1 60、T1_5 65、T2 76）是 AIHOT 在 AI 领域校准出来的，换了行业和提示词，需要重新校准：
+两次评分之和 ≥ 2 × 门槛才够分（够分的还要过归组时的去重，见 [精选与校准](selection.md)）。默认门槛（T1 60、T1_5 65、T2 76）是上游框架在 AI 领域校准出来的，换了行业和提示词，需要重新校准：
 
 1. 从你的信源里挑 100–200 条资料，自己标“该选 / 不该选”，存成 `.data/gold.jsonl`（格式见 [精选与校准](selection.md)，`industry/gold.example.jsonl` 有两条示例）。
 2. 运行 `node --env-file=.env scripts/eval-selection.ts --gold .data/gold.jsonl`，看准确率、查准率、查全率，和不同门槛下的结果。
@@ -124,7 +124,7 @@
   ```
 - 关于页的二维码：先在 `site.ts` 的 `ABOUT.maker` 写好作者块，并写上 `wechat`、`feishu` 卡片（标题和说明）；再在后台“设置 → 关于页二维码”上传图片，或者把图片放进 `site/brand/contact/`，文件名以 `qr-wechat`、`qr-feishu` 开头，格式是 png、jpg 或 webp。作者块、卡片或图片缺一样，那张二维码就不显示。
 
-请不要使用 AIHOT 的名字和 Logo。
+本站使用 HRFDE Hot 的名字和品牌。
 
 读者可以在“我的”页将字体从“默认字体”改为“浏览器默认字体”。后一项使用读者在浏览器中设置的标准字体，覆盖普通正文、表单和动态图表文字；代码仍用等宽字体，Logo、报头字和分享图片仍按站点品牌显示。字体选择只在当前浏览器保存，不转换简繁体。收藏页的版本 1 备份增加了可选的 `font` 字段，旧备份仍可导入；导入不会覆盖读者已经选择的浏览器字体。
 
@@ -132,7 +132,7 @@
 
 - `pages/terms.md`、`pages/privacy.md`：使用规则和隐私说明。**现在是模板**，上线前按你的实际情况改写，必要时请专业人士看一下。
 - `public/`：网站根目录上的四个固定文件，替换占位符后发布：`robots.txt`、`manifest.webmanifest`（装到手机桌面时的名字和图标）、`openapi-v1.json`（公开 API 的说明），以及可选的 `.well-known/security.txt`（安全问题的联系方式）。只发布这四个文件，放进去的其他文件不会出现在网站上；没有的文件访问时是 404。文件里可以写这些占位符：`{{siteName}}`、`{{siteUrl}}`、`{{description}}`、`{{tagline}}`、`{{locale}}`，出刊时间 `{{dailyTime}}`、`{{weeklyTime}}`、`{{monthlyTime}}`，公开接口版本 `{{version}}`，逗号分隔的公开分类 `{{categoryList}}`；JSON 文件里 `enum` 或 `examples` 列表中的 `"{{categories}}"` 会换成公开分类的 key 列表。
-- `changelog.json`：更新日志。自带一条“网站上线”示例，上线前把它的 `date`、`time` 和 `latestVersion` 改成你的上线时间；示例正文里的框架署名（“用 AIHOT 开源框架搭起了这个站”）同样可留可删。新条目写在最前面，把 `latestVersion` 改成它的日期和时间。`kind` 是“更新”“优化”“公告”“下线”之一；要读者一定看到的加 `"urgent": true`（红色，标“重要”）。
+- `changelog.json`：更新日志。自带一条“网站上线”示例，上线前把它的 `date`、`time` 和 `latestVersion` 改成你的上线时间；示例正文里的框架署名同样可留可删。新条目写在最前面，把 `latestVersion` 改成它的日期和时间。`kind` 是“更新”“优化”“公告”“下线”之一；要读者一定看到的加 `"urgent": true`（红色，标“重要”）。
 
 ## 8. 模型和部署
 

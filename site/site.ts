@@ -22,28 +22,28 @@ export const SITE = {
   /** 站名：导航、页面标题、分享图、RSS、MCP、后台都用它。 */
   name: "HRFDE Hot",
   /**
-   * 行业词：拼进默认说法里，比如“AI 日报”“AI 动态”。
+   * 行业词：拼进默认说法里，比如“HR/FDE 日报”“HR/FDE 动态”。
    * 改成“法律”“HR”“黄金”之类，页面上就会变成“法律日报”“法律动态”。
    */
-  subject: "HR科技",
+  subject: "HR/FDE",
   /** 首页的完整标题（浏览器标签、搜索结果）。 */
-  homeTitle: "HRFDE Hot — HR科技行业动态 · 每日精选与日报",
+  homeTitle: "HRFDE Hot — HR、FDE 与职位变化 · 每日精选与日报",
   /** 主题目录页（/topics）的标题。 */
-  topicsTitle: "HR科技主题：厂商与产品、方向与实践的最新动态",
+  topicsTitle: "HR/FDE 主题：HR 科技、FDE 交付、招聘与组织变化",
   /** 反馈表单输入框里的示例。 */
-  feedbackExample: "例如：我在搜索某个关键词时遇到……我原本想……",
+  feedbackExample: "例如：我在搜索某个 HR 科技或 FDE 岗位时遇到……我原本想……",
   /** 反馈页标题下面的一句话。 */
   feedbackLead: "发现 bug、想要的功能、看不顺眼的地方，都可以告诉我们。",
   /** 反馈表单邮箱框里的提示。 */
   feedbackEmailHint: "留下邮箱，我们可以回信联系你",
   /** 一句话介绍：搜索引擎、分享卡片、RSS、llms.txt 会用。 */
-  description: `从一批 HR科技信源里挑出值得看的动态，把同一件事的多篇报道归到一起，${EDITION_WHEN.daily} 出一份日报。`,
+  description: `从 HR 科技、FDE（Forward Deployed Engineer）、招聘与组织变化的信源里挑出值得看的动态，把同一件事的多篇报道归到一起，${EDITION_WHEN.daily} 出一份日报。`,
   /** llms.txt 里一句话介绍下面的一段详细介绍（选填）。 */
   llmsIntro: null as string | null,
   /** 一行小字：分享图、海报下方。 */
-  tagline: "值得关注的 HR科技动态",
+  tagline: "HR、FDE 与岗位变化的每日雷达",
   /** 搜索引擎读到的关键词（首页结构化数据）。 */
-  keywords: ["HR科技 资讯", "HR科技 新闻", "HR 日报", "HRIS 动态", "FDE"] as string[],
+  keywords: ["HR 资讯", "HR 科技", "FDE", "Forward Deployed Engineer", "前线部署工程师", "职位变化", "招聘趋势", "裁员", "组织人事", "HR 日报"] as string[],
   /** 网站开始收录的年份（结构化数据的时间范围，选填）。 */
   since: null as string | null,
   /** 界面语言（HTML lang、og:locale）。 */
@@ -53,7 +53,7 @@ export const SITE = {
   /** 标准图标（favicon.ico、icon.png、icon-192.png、apple-icon.png、logo.svg）以外也放在网站根目录的图标，site/brand/ 里的文件名（选填）；manifest.webmanifest 或外站引用了它们时用。 */
   rootIcons: [] as string[],
   /**
-   * MCP 工具名的前缀（小写字母、数字、下划线），工具会叫 myhot_get_latest、myhot_search……
+   * MCP 工具名的前缀（小写字母、数字、下划线），工具会叫 hrfdehot_get_latest、hrfdehot_search……
    * 已经有人接入后就不要再改。
    */
   mcpPrefix: "hrfde",
@@ -63,9 +63,9 @@ export const SITE = {
    */
   interfaceVersion: "4.0.0",
   /** 对外联系邮箱（选填）：llms.txt 和给 Agent 的使用说明里会写。 */
-  contactEmail: null as string | null,
+  contactEmail: "wangyantsing@qq.com",
   /** 关于页底部的一行小字（选填）。 */
-  footerNote: "由 AIHOT 开源框架驱动",
+  footerNote: "由开源热点框架驱动",
   /** 中国大陆网站的 ICP 备案号（选填），填了就显示在侧栏底部和“我的”页底部，并链接到工信部备案系统。 */
   icp: null as string | null,
   /** 中国大陆网站的公安备案信息（选填），填了显示在侧栏底部和“我的”页底部。 */
@@ -147,15 +147,15 @@ export const ABOUT = {
   /** 页面描述（搜索结果、分享卡片）。 */
   description: `关于 ${SITE.name}：${SITE.description}`,
   /** 大标题：第一行正常颜色，第二行强调色。 */
-  headline: ["HR科技每天都有新动静，", "值得看的，只有几条。"] as [string, string],
+  headline: ["HR 和 FDE 每天都在变，", "值得看的，只有几条。"] as [string, string],
   /** 标题下面的一段话。{sources} 会换成实时的信源数（两边自动加空格，所以 {sources} 两边不写空格）；统计没取到时换成 sourcesFallback。 */
   lead: `${SITE.name} 替你盯着{sources}个信源：抓取、归并、打分、精选，${EDITION_WHEN.daily} 出一份日报。免费，不用注册。`,
-  sourcesFallback: "十几",
+  sourcesFallback: "十几个",
   /** 信源河动画下面的四个环节。 */
   steps: {
-    collect: "官方博客、媒体和个人的订阅源都在看；更新越勤的源看得越勤，最快 15 分钟看一次。",
+    collect: "HR 媒体、HR 科技厂商、FDE 团队与招聘/裁员相关查询都在看；更新越勤的源看得越勤，最快 15 分钟看一次。",
     store: "抓到的都存下来，同一件事的报道归到一起，热点榜就是从这里算出来的。",
-    select: `模型先看是不是这个行业的事、有没有实际信息，再写中文标题、摘要和${ITEM_COPY.reasonLabel}；营销稿和重复转发进不来。`,
+    select: `模型先看是不是 HR、FDE 或职位变化的事、有没有实际信息，再写中文标题、摘要和${ITEM_COPY.reasonLabel}；营销稿和泛 AI 发布进不来。`,
     publish: `${EDITION_WHEN.daily} 出日报，${EDITION_WHEN.weekly} 出周报，${EDITION_WHEN.monthly} 出月报。`,
   },
   /**
@@ -189,7 +189,7 @@ export const ADMIN = {
 /** Agent 接入页的示例。 */
 export const AGENT = {
   /** MCP 工具表里“搜索”一行：能搜什么、可以怎么问。 */
-  search: { scope: "按公司、产品、人物或话题搜最近 7 天", ask: "这家公司最近发了什么？" },
+  search: { scope: "按公司、HR 科技产品、FDE 团队、人物或话题搜最近 7 天", ask: "Workday 最近有什么 HR 科技动态？" },
 };
 
 /** 日报、周报、月报版面上的说法。 */
@@ -200,9 +200,9 @@ export const REPORTS = {
   motto: SITE.subject as string,
   /** 每种报告页面的描述（搜索结果、分享卡片），不带句号；llms.txt 介绍周报、月报时也用它。 */
   descriptions: {
-    daily: `${SITE.name} ${subjectAfter(`${EDITION_WHEN.daily}（北京时间）发布的`, "行业精编日报")}`,
-    weekly: subjectAfter("每周", "行业综合回顾"),
-    monthly: subjectAfter("每月", "行业盘点"),
+    daily: `${SITE.name} ${subjectAfter(`${EDITION_WHEN.daily}（北京时间）发布的`, "精编日报")}`,
+    weekly: subjectAfter("每周", "综合回顾"),
+    monthly: subjectAfter("每月", "盘点"),
   },
   /**
    * 一期里的一条怎么称呼（“4 件大事”）：没有头条时的标题（“这一天的 4 件 AI 大事”）、报头和往期目录的条数、

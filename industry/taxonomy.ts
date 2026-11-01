@@ -12,58 +12,79 @@
  * feedLabel 是分类 RSS 标题里的名字（不写就用 label）。公开接口、RSS 和 MCP 里要把一类并进另一类发布，写在站点设置里（site/site.ts 的 PUBLIC_CATEGORIES）。
  */
 export const CATEGORIES = [
-  { key: "ai-models", tagColor: "indigo", label: "模型", feedLabel: "AI 模型", section: "模型发布/更新", guide: "模型本身的发布、版本、权重开放、能力或价格变化，以及既有榜单上的模型成绩。公布一次跑分不是发布新基准，也不是教程。" },
-  { key: "ai-products", tagColor: "turquoise", label: "产品", feedLabel: "AI 产品", section: "产品发布/更新", guide: "可使用的 AI 产品、功能、应用、工具、API、平台和工程组件的发布更新。模型厂商发布的推理框架、算子库、硬件适配组件仍是产品，不能因为厂商名归成模型。" },
-  { key: "industry", tagColor: "orange", label: "行业", feedLabel: "行业动态", section: "行业动态", guide: "已发生的公司经营、融资并购、人事、合作、诉讼、政策、真实安全事故及调查进展。新闻由当事人发帖、带有态度，也不因此变成观点。" },
-  { key: "paper", tagColor: "violet", label: "论文", feedLabel: "论文", section: "论文研究", guide: "以新研究方法、实验设计与发现为核心的论文、技术报告、新基准或研究数据集。系统性红队实验属于研究；既有榜单成绩归模型，真实事故的新闻调查归行业。" },
-  { key: "tip", tagColor: "green", label: "教程", section: "技巧与观点", guide: "读者可以照着使用的方法、提示词、工具用法、工程实践复盘与技术讲解。重点是可复用的做法；单纯发布工具归产品，只有态度和预测而无做法归观点。", commentary: true },
-  { key: "opinion", tagColor: "purple", label: "观点", section: "技巧与观点", guide: "重点是作者的解释、判断、主张、预测、评论或访谈观点。讨论市场不自动归行业，作者是名人不自动归观点。", commentary: true },
+  { key: "fde", tagColor: "indigo", label: "FDE / 交付", feedLabel: "FDE 与交付", section: "FDE 与交付", guide: "Forward Deployed Engineer（前线部署工程师）及其相邻的客户现场交付角色：岗位设置、团队搭建、招聘要求、薪酬与职业路径，驻客户现场把 AI/软件落到业务场景的方法、案例与组织模式。Palantir、Sierra、Decagon 等 FDE 密集型公司的交付团队变化归这里；没有交付场景的泛 AI 新闻不归这里。" },
+  { key: "hr-tech", tagColor: "turquoise", label: "HR 科技", feedLabel: "HR 科技", section: "HR 科技", guide: "可使用的 HR 产品、平台和工程组件：HRIS/HCM、ATS、招聘、薪酬、福利、绩效、学习、员工体验、劳动力分析、全球用工与 EOR/PEO 的功能发布、集成、采购、替换和厂商动态。AI 功能是产品更新的一部分；纯模型能力发布不归这里。" },
+  { key: "hiring", tagColor: "orange", label: "招聘 / 裁员", feedLabel: "招聘与裁员", section: "招聘、组织与行业", guide: "已发生的招聘计划、裁员、招聘冻结、业务重组、岗位迁移、人才争夺、雇主品牌和招聘市场变化。要有具体主体、范围、数字或时间；单条职位广告归 FDE/交付或 HR 科技，泛泛的招聘趋势评论归观点。" },
+  { key: "industry", tagColor: "amber", label: "行业 / 人事", feedLabel: "行业与人事", section: "招聘、组织与行业", guide: "已发生的公司经营、融资并购、高管/CHRO/CPO 变动、组织架构调整、办公模式、合作、诉讼，以及这些变化对编制、人才和组织的影响。有明确招聘/裁员动作的归招聘/裁员；FDE 团队与交付组织的具体变化归 FDE/交付；只有商业模式判断而无事实的归观点。" },
+  { key: "policy", tagColor: "red", label: "政策 / 合规", feedLabel: "政策与合规", section: "政策与合规", guide: "劳动法、就业与招聘监管、薪酬透明、签证与全球用工、工会、员工隐私、AI 在 HR 场景中的合规要求，以及已经生效或进入明确程序的判例、处罚和官方指引。只讨论政策方向而没有具体条款或程序的归观点。" },
+  { key: "research", tagColor: "violet", label: "研究 / 报告", feedLabel: "研究与报告", section: "研究与报告", guide: "以劳动力市场、招聘、薪酬、员工体验、组织效能、FDE/交付工程为核心的研究报告、调查、数据集、基准和系统性分析。要能看出方法、样本或数据来源；厂商白皮书只有营销结论的不归这里，纯产品发布归 HR 科技。" },
+  { key: "practice", tagColor: "green", label: "实践 / 教程", section: "实践与观点", guide: "读者可以照着用的 HR 操作手册、招聘流程、HRIS 实施、薪酬与绩效设计、FDE 交付方法、面试准备、职业转型和团队搭建复盘。重点是可复用的做法；单纯发布工具归 HR 科技，只有态度和预测而无做法归观点。", commentary: true },
+  { key: "opinion", tagColor: "purple", label: "观点", section: "实践与观点", guide: "重点是作者对 HR、FDE、招聘、组织与人才市场的解释、判断、预测、评论或访谈观点。讨论市场不自动归行业/人事，作者是名人不自动归观点；没有新事实、新数据或可复用框架的宏大叙事要压低。", commentary: true },
 ] as const satisfies ReadonlyArray<{ key: string; tagColor: string; label: string; feedLabel?: string; section: string; guide: string; commentary?: true }>;
 
 /**
- * 这个行业最受关注的一类发布（AI 行业是新模型）：日报报头的“N 个新模型”、改分类后修订已出的报告都按它数。
+ * 这个行业最受关注的一类发布：日报报头的“N 个新模型”、改分类后修订已出的报告都按它数。
  * category 是类别，tag 是标签，两者都对上才算；unit 接在数字后面。
  * 没有这样一类的行业设成 null，报头就不显示这个数。
  */
-export const RELEASE: { category: string; tag: string; unit: string } | null = { category: "ai-models", tag: "模型发布", unit: "个新模型" };
+export const RELEASE: { category: string; tag: string; unit: string } | null = null;
 
 /** 周报月报的总述可以直接写、不必在报道里找到出处的行业通用词（小写）。站名会自动算进去。 */
-export const PLAIN_TERMS: readonly string[] = ["ai", "api", "llm", "gpu", "agi", "ceo", "ipo"];
+export const PLAIN_TERMS: readonly string[] = [
+  "hr", "fde", "hris", "hcm", "ats", "ceo", "chro", "cpo", "cto", "ipo", "saas", "ai", "api", "erp", "okr", "dei", "esg",
+  "forward", "deployed", "engineer", "recruiting", "talent", "workforce", "payroll", "benefits",
+];
 
 /**
  * 内容理解一步给每篇资料判的“内容类型”（写在 prompts/content-understanding.md 里，改了类型要同步改那份提示词）。
  * 评分提示词（prompts/selection-score.md）按类型给五个维度不同的权重。
  */
-export const ITEM_TYPES = ["model_release", "product_launch", "tool_or_prompt", "research_paper", "industry_event", "opinion_analysis", "tutorial_explainer"] as const;
+export const ITEM_TYPES = [
+  "fde_role", "hr_tech_launch", "job_change", "leadership_change", "business_event",
+  "policy_compliance", "research_report", "practice_guide", "opinion_analysis",
+] as const;
 
 // ── 标签词表 ────────────────────────────────────────────────────────────────────────────
 
 /** 每篇资料的第一个标签必须是这些“分类标签”之一。 */
 export const CATEGORY_TAGS = [
-  "产品更新", "模型发布", "论文/研究", "开源/仓库", "教程/实践", "现象/趋势", "大佬观点", "评测/基准", "安全/对齐", "行业动态", "政策/监管",
-  "非AI/通用工具", "其他",
+  "FDE/交付", "HR科技", "招聘/裁员", "组织/人事", "行业/商业", "融资/并购", "政策/合规",
+  "研究/报告", "实践/教程", "观点/评论", "薪酬/福利", "员工体验", "其他",
 ] as const;
 
 /** 可选的主题标签。 */
 export const TOPIC_TAGS = [
-  "Agent", "编码", "推理", "多模态", "语音", "视频", "图像生成", "RAG", "端侧", "数据/训练", "搜索", "部署/工程", "开源生态", "具身智能", "MCP/工具调用",
-  "HRIS/HCM", "招聘/人才获取", "员工体验", "人力分析", "薪酬/福利", "AI in HR", "FDE/前沿部署", "招投标/采购", "合规/劳动法规",
+  "FDE", "交付工程", "客户成功", "解决方案", "HRIS", "HCM", "ATS", "招聘", "人才获取", "薪酬", "福利",
+  "绩效", "学习发展", "员工体验", "组织发展", "劳动力分析", "HRBP", "全球用工", "远程/混合办公", "合规",
+  "裁员", "技能转型", "管理者", "雇主品牌", "内部流动", "AI招聘", "职业转型",
 ] as const;
 
 /** 可选的实体标签（公司、机构、平台）。 */
-export const ENTITY_TAGS = ["OpenAI", "Anthropic", "DeepSeek", "DeepMind", "Google", "Meta", "Microsoft", "xAI", "Hugging Face", "GitHub", "arXiv"] as const;
+export const ENTITY_TAGS = [
+  "Workday", "SAP SuccessFactors", "Oracle HCM", "ADP", "Dayforce", "Cornerstone", "Phenom", "Paradox",
+  "Eightfold", "iCIMS", "Greenhouse", "Lever", "Ashby", "SmartRecruiters", "Deel", "Remote", "Rippling", "HiBob",
+  "Personio", "Lattice", "Culture Amp", "Visier", "Palantir", "Sierra", "Decagon", "OpenAI", "Anthropic",
+  "Scale AI", "Salesforce", "ServiceNow", "北森", "Moka", "仟寻", "猎聘", "BOSS直聘", "智联招聘", "前程无忧",
+  "飞书 People", "钉钉",
+] as const;
 
 /** 模型常写的近义词，统一成词表里的写法。 */
 export const TAG_SYNONYMS: Readonly<Record<string, string>> = {
-  "教程/玩法": "教程/实践", "技巧/最佳实践": "教程/实践", "合作/生态": "行业动态", "融资/收购": "行业动态", "公司动态": "行业动态",
-  合作: "行业动态", 生态: "行业动态", 融资: "行业动态", 收购: "行业动态", 投资: "行业动态", 并购: "行业动态",
-  政策: "政策/监管", 监管: "政策/监管", 法规: "政策/监管", 安全: "安全/对齐", 对齐: "安全/对齐",
-  论文: "论文/研究", 研究: "论文/研究", paper: "论文/研究", papers: "论文/研究",
-  "open-source": "开源/仓库", 开源: "开源/仓库", 仓库: "开源/仓库", repo: "开源/仓库",
-  教程: "教程/实践", 玩法: "教程/实践", 指南: "教程/实践", 技巧: "教程/实践", 最佳实践: "教程/实践", 实践: "教程/实践",
-  产品: "产品更新", 更新: "产品更新", 发布: "模型发布", 模型: "模型发布", 趋势: "现象/趋势", 现象: "现象/趋势", 观点: "大佬观点",
-  视频生成: "视频", 非ai: "非AI/通用工具", "non-ai": "非AI/通用工具", 通用工具: "非AI/通用工具", 工程工具: "非AI/通用工具",
-  安全扫描: "非AI/通用工具", devops: "非AI/通用工具", 行业: "行业动态", 动态: "行业动态",
+  "forward deployed engineer": "FDE", "forward-deployed engineer": "FDE", "前线部署工程师": "FDE", "交付工程师": "FDE", "驻场工程师": "FDE",
+  "人力资源科技": "HR科技", "人力资源技术": "HR科技", "hr tech": "HR科技", "hr technology": "HR科技", "hr saas": "HR科技",
+  "人力资源": "组织/人事", "人事": "组织/人事", "高管变动": "组织/人事", "人事变动": "组织/人事", "组织调整": "组织/人事",
+  "招聘": "招聘/裁员", "recruiting": "招聘", "talent acquisition": "人才获取", "layoff": "裁员", "layoffs": "裁员", "裁员潮": "裁员",
+  "job cuts": "裁员", "hiring freeze": "招聘/裁员", "招聘冻结": "招聘/裁员", "重组": "组织/人事", "restructuring": "组织/人事",
+  "融资": "融资/并购", "收购": "融资/并购", "并购": "融资/并购", "funding": "融资/并购", "acquisition": "融资/并购", "m&a": "融资/并购",
+  "policy": "政策/合规", "regulation": "政策/合规", "compliance": "合规", "监管": "政策/合规", "法规": "政策/合规", "劳动法": "政策/合规",
+  "paper": "研究/报告", "report": "研究/报告", "survey": "研究/报告", "研究": "研究/报告", "报告": "研究/报告", "调查": "研究/报告",
+  "tutorial": "实践/教程", "guide": "实践/教程", "how-to": "实践/教程", "教程": "实践/教程", "指南": "实践/教程", "最佳实践": "实践/教程",
+  "opinion": "观点/评论", "观点": "观点/评论", "评论": "观点/评论", "趋势": "观点/评论", "预测": "观点/评论",
+  "薪酬": "薪酬/福利", "工资": "薪酬/福利", "福利": "薪酬/福利", "benefits": "薪酬/福利", "payroll": "薪酬/福利",
+  "员工体验": "员工体验", "employee experience": "员工体验", "engagement": "员工体验",
+  "hris": "HRIS", "hcm": "HCM", "ats": "ATS", "eor": "全球用工", "peo": "全球用工",
+  "remote work": "远程/混合办公", "hybrid work": "远程/混合办公", "混合办公": "远程/混合办公", "远程办公": "远程/混合办公",
+  "upskilling": "技能转型", "reskilling": "技能转型", "技能提升": "技能转型", "career change": "职业转型", "转行": "职业转型",
 };
 
 // ── 公司与主体 ──────────────────────────────────────────────────────────────────────────
@@ -75,37 +96,46 @@ export const TAG_SYNONYMS: Readonly<Record<string, string>> = {
  * 所有这些名字都用来认出说的是哪家公司，比如把事实的主体对到发布方。
  */
 export const ENTITIES: Record<string, { name: string; displayTag: string | null; aliases: string[]; orgNames?: string[]; otherNames?: string[] }> = {
-  "world-labs": { name: "World Labs", displayTag: null, aliases: ["World Labs"] },
-  "thinking-machines": { name: "Thinking Machines Lab", displayTag: null, aliases: ["Thinking Machines"] },
-  amd: { name: "AMD", displayTag: null, aliases: ["AMD", "Advanced Micro Devices"] },
-  openai: { name: "OpenAI", displayTag: "OpenAI", aliases: ["OpenAI", "ChatGPT", "Sora", "Codex", "GPT"], orgNames: ["OpenAI"], otherNames: ["OpenAI Developers"] },
-  anthropic: { name: "Anthropic", displayTag: "Anthropic", aliases: ["Anthropic", "Claude"], orgNames: ["Anthropic"], otherNames: ["Claude Code"] },
-  google: { name: "Google", displayTag: "Google", aliases: ["Google", "DeepMind", "Gemini", "谷歌"], orgNames: ["Google DeepMind", "Google Research", "Google", "DeepMind", "谷歌"], otherNames: ["Google AI", "Google Labs", "Google Cloud"] },
-  deepseek: { name: "DeepSeek", displayTag: "DeepSeek", aliases: ["DeepSeek", "深度求索"], orgNames: ["DeepSeek", "深度求索"] },
-  qwen: { name: "千问 Qwen", displayTag: null, aliases: ["Qwen", "通义", "阿里"], orgNames: ["通义千问", "通义实验室", "阿里巴巴", "阿里云", "阿里", "Qwen Team", "Qwen", "Alibaba"], otherNames: ["千问", "千问APP", "Alibaba Cloud"] },
-  kimi: { name: "Kimi / 月之暗面", displayTag: null, aliases: ["Kimi", "月之暗面", "Moonshot"], orgNames: ["Moonshot AI", "月之暗面", "Kimi"] },
-  minimax: { name: "MiniMax", displayTag: null, aliases: ["MiniMax", "海螺"], orgNames: ["MiniMax", "稀宇科技"] },
-  zhipu: { name: "智谱 GLM", displayTag: null, aliases: ["智谱", "GLM", "Z.ai"], orgNames: ["智谱AI", "智谱", "Zhipu AI", "Z.ai"], otherNames: ["Zhipu"] },
-  xai: { name: "xAI", displayTag: "xAI", aliases: ["xAI", "Grok"], orgNames: ["SpaceX Super Intelligence", "SpaceXAI", "SpaceXSI", "xAI"], otherNames: ["Grok Bot"] },
-  meta: { name: "Meta", displayTag: "Meta", aliases: ["Meta", "Llama"], orgNames: ["Meta Superintelligence Labs", "Meta AI", "Meta"], otherNames: ["AI at Meta", "Muse"] },
-  microsoft: { name: "Microsoft", displayTag: "Microsoft", aliases: ["Microsoft", "微软", "Copilot"], orgNames: ["Microsoft Research", "Microsoft AI", "Microsoft", "微软"] },
-  nvidia: { name: "NVIDIA", displayTag: null, aliases: ["NVIDIA", "英伟达"], orgNames: ["NVIDIA", "英伟达"] },
-  "hugging-face": { name: "Hugging Face", displayTag: "Hugging Face", aliases: ["Hugging Face"], orgNames: ["Hugging Face", "HuggingFace"] },
-  cursor: { name: "Cursor", displayTag: null, aliases: ["Cursor", "Anysphere"], orgNames: ["Cursor"] },
-  openrouter: { name: "OpenRouter", displayTag: null, aliases: ["OpenRouter"], orgNames: ["OpenRouter"] },
-
-  // ── HR 科技：厂商、平台与从业者 ──────────────────────────────────────────────────────────
-  sap: { name: "SAP / SuccessFactors", displayTag: "SAP", aliases: ["SAP", "SuccessFactors", "SAP SuccessFactors"], orgNames: ["SAP", "SAP SuccessFactors"], otherNames: ["SAP News"] },
-  workday: { name: "Workday", displayTag: "Workday", aliases: ["Workday", "Workday HCM"], orgNames: ["Workday"] },
-  oracle: { name: "Oracle / Oracle HCM", displayTag: "Oracle", aliases: ["Oracle", "Oracle HCM", "Oracle Fusion"], orgNames: ["Oracle"] },
-  ukg: { name: "UKG", displayTag: "UKG", aliases: ["UKG", "Ultimate Kronos"], orgNames: ["UKG"] },
-  servicenow: { name: "ServiceNow", displayTag: "ServiceNow", aliases: ["ServiceNow"], orgNames: ["ServiceNow"] },
-  icims: { name: "iCIMS", displayTag: null, aliases: ["iCIMS"], orgNames: ["iCIMS"] },
+  workday: { name: "Workday", displayTag: "Workday", aliases: ["Workday", "Workday HCM", "Workday Financials"], orgNames: ["Workday"] },
+  "sap": { name: "SAP SuccessFactors", displayTag: "SAP SuccessFactors", aliases: ["SAP SuccessFactors", "SuccessFactors", "SAP HCM", "SAP"], orgNames: ["SAP", "SAP SuccessFactors"] },
+  "oracle": { name: "Oracle HCM", displayTag: "Oracle HCM", aliases: ["Oracle HCM", "Oracle Fusion HCM", "Oracle"], orgNames: ["Oracle"] },
+  adp: { name: "ADP", displayTag: "ADP", aliases: ["ADP", "Automatic Data Processing"], orgNames: ["ADP"] },
+  dayforce: { name: "Dayforce", displayTag: "Dayforce", aliases: ["Dayforce", "Ceridian"], orgNames: ["Dayforce", "Ceridian"] },
+  cornerstone: { name: "Cornerstone", displayTag: "Cornerstone", aliases: ["Cornerstone", "Cornerstone OnDemand"], orgNames: ["Cornerstone"] },
+  phenom: { name: "Phenom", displayTag: "Phenom", aliases: ["Phenom", "Phenom People"], orgNames: ["Phenom"] },
+  paradox: { name: "Paradox", displayTag: "Paradox", aliases: ["Paradox", "Olivia"], orgNames: ["Paradox"] },
   eightfold: { name: "Eightfold AI", displayTag: "Eightfold", aliases: ["Eightfold", "Eightfold AI"], orgNames: ["Eightfold"] },
-  beisen: { name: "北森", displayTag: "北森", aliases: ["北森", "Beisen"], orgNames: ["北森", "北森云计算"] },
-  moka: { name: "Moka", displayTag: "Moka", aliases: ["Moka", "MokaHR", "希瑞亚斯"], orgNames: ["Moka"] },
-  palantir: { name: "Palantir", displayTag: "Palantir", aliases: ["Palantir", "Foundry", "AIP"], orgNames: ["Palantir"] },
+  icims: { name: "iCIMS", displayTag: null, aliases: ["iCIMS"], orgNames: ["iCIMS"] },
+  greenhouse: { name: "Greenhouse", displayTag: "Greenhouse", aliases: ["Greenhouse", "Greenhouse Software"], orgNames: ["Greenhouse"] },
+  lever: { name: "Lever", displayTag: "Lever", aliases: ["Lever", "Lever.co"], orgNames: ["Lever"] },
+  ashby: { name: "Ashby", displayTag: "Ashby", aliases: ["Ashby", "Ashby HQ"], orgNames: ["Ashby"] },
+  smartrecruiters: { name: "SmartRecruiters", displayTag: "SmartRecruiters", aliases: ["SmartRecruiters"], orgNames: ["SmartRecruiters"] },
+  deel: { name: "Deel", displayTag: "Deel", aliases: ["Deel"], orgNames: ["Deel"] },
+  remote: { name: "Remote", displayTag: "Remote", aliases: ["Remote", "Remote.com"], orgNames: ["Remote"] },
+  rippling: { name: "Rippling", displayTag: "Rippling", aliases: ["Rippling"], orgNames: ["Rippling"] },
+  hibob: { name: "HiBob", displayTag: "HiBob", aliases: ["HiBob", "Bob"], orgNames: ["HiBob"] },
+  personio: { name: "Personio", displayTag: "Personio", aliases: ["Personio"], orgNames: ["Personio"] },
+  lattice: { name: "Lattice", displayTag: "Lattice", aliases: ["Lattice"], orgNames: ["Lattice"] },
+  "culture-amp": { name: "Culture Amp", displayTag: "Culture Amp", aliases: ["Culture Amp", "CultureAmp"], orgNames: ["Culture Amp"] },
+  visier: { name: "Visier", displayTag: "Visier", aliases: ["Visier"], orgNames: ["Visier"] },
   "josh-bersin": { name: "Josh Bersin", displayTag: null, aliases: ["Josh Bersin", "Bersin"], orgNames: ["Josh Bersin Company"] },
+  palantir: { name: "Palantir", displayTag: "Palantir", aliases: ["Palantir", "Palantir Technologies", "Foundry", "Gotham", "AIP"], orgNames: ["Palantir"] },
+  sierra: { name: "Sierra", displayTag: "Sierra", aliases: ["Sierra", "Sierra AI"], orgNames: ["Sierra"] },
+  decagon: { name: "Decagon", displayTag: "Decagon", aliases: ["Decagon"], orgNames: ["Decagon"] },
+  openai: { name: "OpenAI", displayTag: "OpenAI", aliases: ["OpenAI", "ChatGPT"], orgNames: ["OpenAI"] },
+  anthropic: { name: "Anthropic", displayTag: "Anthropic", aliases: ["Anthropic", "Claude"], orgNames: ["Anthropic"] },
+  "scale-ai": { name: "Scale AI", displayTag: "Scale AI", aliases: ["Scale AI", "Scale"], orgNames: ["Scale AI"] },
+  salesforce: { name: "Salesforce", displayTag: "Salesforce", aliases: ["Salesforce", "Slack", "Tableau"], orgNames: ["Salesforce"] },
+  servicenow: { name: "ServiceNow", displayTag: "ServiceNow", aliases: ["ServiceNow"], orgNames: ["ServiceNow"] },
+  beisen: { name: "北森", displayTag: "北森", aliases: ["北森", "Beisen"], orgNames: ["北森", "Beisen"] },
+  moka: { name: "Moka", displayTag: "Moka", aliases: ["Moka", "摩卡"], orgNames: ["Moka"] },
+  moseeker: { name: "仟寻", displayTag: "仟寻", aliases: ["仟寻", "MoSeeker"], orgNames: ["仟寻", "MoSeeker"] },
+  liepin: { name: "猎聘", displayTag: "猎聘", aliases: ["猎聘", "Liepin"], orgNames: ["猎聘", "Liepin"] },
+  "boss-zhipin": { name: "BOSS直聘", displayTag: "BOSS直聘", aliases: ["BOSS直聘", "Boss直聘", "Kanzhun"], orgNames: ["BOSS直聘", "Kanzhun"] },
+  zhaopin: { name: "智联招聘", displayTag: "智联招聘", aliases: ["智联招聘", "Zhaopin"], orgNames: ["智联招聘", "Zhaopin"] },
+  "51job": { name: "前程无忧", displayTag: "前程无忧", aliases: ["前程无忧", "51job"], orgNames: ["前程无忧", "51job"] },
+  "feishu-people": { name: "飞书 People", displayTag: "飞书 People", aliases: ["飞书 People", "Feishu People", "Lark People"], orgNames: ["飞书", "Feishu", "Lark"] },
+  dingtalk: { name: "钉钉", displayTag: "钉钉", aliases: ["钉钉", "DingTalk"], orgNames: ["钉钉", "DingTalk"] },
 };
 
 /**
@@ -113,75 +143,95 @@ export const ENTITIES: Record<string, { name: string; displayTag: string | null;
  * 行业没有这个问题时可以留空数组。
  */
 export const IDENTITY_LEXICON: ReadonlyArray<{ id: string; name: string; patterns: RegExp[] }> = [
-  { id: "openai", name: "OpenAI", patterns: [/openai|chatgpt|\bgpt-?[o\d]|\bsora\b|\bcodex\b/i] },
-  { id: "anthropic", name: "Anthropic", patterns: [/anthropic|\bclaude\b/i, /\b(?:opus|sonnet|haiku)\s*\d+(?:[.\-]\d+)*\b/i, /\bfable\s*\d+(?:[.\-]\d+)*\b|\bmythos\b/i] },
-  { id: "google", name: "Google / Gemini", patterns: [/google|deepmind|\bgemini\b|notebooklm|\bveo\s?\d|\bAlphaFold\b|\bAMIE\b/i] },
-  { id: "deepseek", name: "DeepSeek", patterns: [/deepseek|深度求索/i] },
-  { id: "xai", name: "xAI / Grok", patterns: [/\bxai\b|\bgrok\b/i] },
-  { id: "meta", name: "Meta / Llama", patterns: [/\bMeta\b/, /\bmeta\s?ai\b|\bllama\b/i] },
-  { id: "microsoft", name: "Microsoft / Copilot", patterns: [/microsoft|copilot|微软/i] },
-  { id: "nvidia", name: "NVIDIA", patterns: [/nvidia|英伟达|\bnemotron\b|\bnemo\b|\bblackwell\b|\brubin(?:\s+ultra)?\b|\bcuda\b/i] },
-  { id: "qwen", name: "千问 Qwen", patterns: [/\bqwen|通义|千问/i] },
-  { id: "hugging-face", name: "Hugging Face", patterns: [/hugging\s?face/i] },
-  { id: "cursor", name: "Cursor", patterns: [/\bCursor\b/] },
-  { id: "kimi", name: "Kimi / 月之暗面", patterns: [/\bkimi\b|月之暗面|\bmoonshot\s?ai\b/i] },
-  { id: "openrouter", name: "OpenRouter", patterns: [/openrouter/i] },
-  { id: "minimax", name: "MiniMax", patterns: [/minimax/i] },
-  { id: "zhipu", name: "智谱 GLM", patterns: [/智谱|\bglm-?[4-9]/i] },
-  { id: "hunyuan", name: "腾讯混元", patterns: [/混元|hunyuan/i] },
-  { id: "doubao", name: "字节豆包", patterns: [/豆包|doubao|字节跳动|bytedance/i] },
-  { id: "mistral", name: "Mistral", patterns: [/mistral/i] },
-  { id: "perplexity", name: "Perplexity", patterns: [/\bPerplexity\b/] },
-  { id: "runway", name: "Runway", patterns: [/\brunway\b/i] },
-  { id: "suno", name: "Suno", patterns: [/\bsuno\b/i] },
-  { id: "midjourney", name: "Midjourney", patterns: [/midjourney/i] },
-  { id: "stability-ai", name: "Stability AI", patterns: [/stability\s?ai/i] },
-  { id: "elevenlabs", name: "ElevenLabs", patterns: [/eleven\s?labs/i] },
-  { id: "vllm", name: "vLLM", patterns: [/\bvllm\b/i] },
-  { id: "ollama", name: "Ollama", patterns: [/\bollama\b/i] },
-  { id: "windsurf", name: "Windsurf", patterns: [/windsurf/i] },
-  { id: "devin", name: "Devin", patterns: [/\bdevin\b/i] },
-  { id: "manus", name: "Manus", patterns: [/\bmanus\b/i] },
-  { id: "apple", name: "Apple AI", patterns: [/\bapple\s?(intelligence|silicon|ai)\b|苹果(智能|\s?AI)/i] },
-  { id: "amazon", name: "Amazon / AWS", patterns: [/amazon|\baws\b|亚马逊/i] },
-  { id: "baidu", name: "百度文心", patterns: [/百度|baidu|文心|\bernie\s?bot\b/i] },
-  { id: "sap", name: "SAP / SuccessFactors", patterns: [/sap|success\s?factors/i] },
-  { id: "workday", name: "Workday", patterns: [/workday/i] },
-  { id: "oracle", name: "Oracle HCM", patterns: [/oracle\s?(hcm|fusion|cloud)?|甲骨文/i] },
-  { id: "ukg", name: "UKG", patterns: [/ukg|kronos/i] },
-  { id: "servicenow", name: "ServiceNow", patterns: [/service\s?now/i] },
-  { id: "eightfold", name: "Eightfold AI", patterns: [/eightfold/i] },
-  { id: "beisen", name: "北森", patterns: [/北森|beisen/i] },
-  { id: "moka", name: "Moka", patterns: [/moka(?:hr)?/i] },
-  { id: "palantir", name: "Palantir", patterns: [/palantir|foundry/i] },
+  { id: "workday", name: "Workday", patterns: [/\bWorkday\b/] },
+  { id: "sap", name: "SAP SuccessFactors", patterns: [/\bSAP\b|SuccessFactors/i] },
+  { id: "oracle", name: "Oracle HCM", patterns: [/\bOracle\b/] },
+  { id: "adp", name: "ADP", patterns: [/\bADP\b|Automatic Data Processing/i] },
+  { id: "dayforce", name: "Dayforce", patterns: [/\bDayforce\b|\bCeridian\b/i] },
+  { id: "cornerstone", name: "Cornerstone", patterns: [/\bCornerstone\b/] },
+  { id: "phenom", name: "Phenom", patterns: [/\bPhenom\b/] },
+  { id: "paradox", name: "Paradox", patterns: [/\bParadox\b/] },
+  { id: "eightfold", name: "Eightfold AI", patterns: [/\bEightfold\b/] },
+  { id: "greenhouse", name: "Greenhouse", patterns: [/\bGreenhouse\b/] },
+  { id: "lever", name: "Lever", patterns: [/\bLever\b/] },
+  { id: "ashby", name: "Ashby", patterns: [/\bAshby\b/] },
+  { id: "smartrecruiters", name: "SmartRecruiters", patterns: [/SmartRecruiters/i] },
+  { id: "deel", name: "Deel", patterns: [/\bDeel\b/] },
+  { id: "remote", name: "Remote", patterns: [/\bRemote(?:\.com)?\b/] },
+  { id: "rippling", name: "Rippling", patterns: [/\bRippling\b/] },
+  { id: "hibob", name: "HiBob", patterns: [/\bHiBob\b/] },
+  { id: "personio", name: "Personio", patterns: [/\bPersonio\b/] },
+  { id: "lattice", name: "Lattice", patterns: [/\bLattice\b/] },
+  { id: "culture-amp", name: "Culture Amp", patterns: [/Culture\s?Amp/i] },
+  { id: "visier", name: "Visier", patterns: [/\bVisier\b/] },
+  { id: "palantir", name: "Palantir", patterns: [/\bPalantir\b|\bFoundry\b|\bGotham\b|\bAIP\b/] },
+  { id: "sierra", name: "Sierra", patterns: [/\bSierra(?: AI)?\b/] },
+  { id: "decagon", name: "Decagon", patterns: [/\bDecagon\b/] },
+  { id: "openai", name: "OpenAI", patterns: [/\bopenai\b|\bchatgpt\b/i] },
+  { id: "anthropic", name: "Anthropic", patterns: [/\banthropic\b|\bclaude\b/i] },
+  { id: "scale-ai", name: "Scale AI", patterns: [/\bscale\s?ai\b/i] },
+  { id: "salesforce", name: "Salesforce", patterns: [/\bsalesforce\b|\bslack\b|\btableau\b/i] },
+  { id: "servicenow", name: "ServiceNow", patterns: [/servicenow/i] },
+  { id: "beisen", name: "北森", patterns: [/北森|\bbeisen\b/i] },
+  { id: "moka", name: "Moka", patterns: [/\bmoka\b|摩卡/i] },
+  { id: "moseeker", name: "仟寻", patterns: [/仟寻|\bmoseeker\b/i] },
+  { id: "liepin", name: "猎聘", patterns: [/猎聘|\bliepin\b/i] },
+  { id: "boss-zhipin", name: "BOSS直聘", patterns: [/boss直聘|kanzhun/i] },
+  { id: "zhaopin", name: "智联招聘", patterns: [/智联招聘|\bzhaopin\b/i] },
+  { id: "51job", name: "前程无忧", patterns: [/前程无忧|\b51job\b/i] },
+  { id: "feishu-people", name: "飞书 People", patterns: [/飞书\s?people|\bfeishu\b|\blark\b/i] },
+  { id: "dingtalk", name: "钉钉", patterns: [/钉钉|\bdingtalk\b/i] },
+  { id: "icims", name: "iCIMS", patterns: [/\biCIMS\b/i] },
+  { id: "josh-bersin", name: "Josh Bersin", patterns: [/\bJosh Bersin\b|\bBersin\b/] },
 ];
 
 /** 这些域名上的文章，发布方就是对应的公司（托管平台如 GitHub、arXiv 不算）。 */
 export const PUBLISHER_DOMAINS: ReadonlyArray<{ entityId: string; domains: readonly string[] }> = [
-  { entityId: "openai", domains: ["openai.com"] },
-  { entityId: "anthropic", domains: ["anthropic.com", "claude.com"] },
-  { entityId: "google", domains: ["deepmind.google", "ai.google", "blog.google"] },
-  { entityId: "deepseek", domains: ["deepseek.com"] },
-  { entityId: "xai", domains: ["x.ai"] },
-  { entityId: "meta", domains: ["ai.meta.com"] },
-  { entityId: "microsoft", domains: ["microsoft.com"] },
-  { entityId: "nvidia", domains: ["nvidia.com"] },
-  { entityId: "qwen", domains: ["qwen.ai"] },
-  { entityId: "cursor", domains: ["cursor.com"] },
-  { entityId: "openrouter", domains: ["openrouter.ai"] },
-  { entityId: "sap", domains: ["news.sap.com", "sap.com"] },
   { entityId: "workday", domains: ["workday.com"] },
+  { entityId: "sap", domains: ["sap.com"] },
   { entityId: "oracle", domains: ["oracle.com"] },
-  { entityId: "ukg", domains: ["ukg.com"] },
-  { entityId: "servicenow", domains: ["servicenow.com"] },
+  { entityId: "adp", domains: ["adp.com"] },
+  { entityId: "dayforce", domains: ["dayforce.com"] },
+  { entityId: "cornerstone", domains: ["cornerstoneondemand.com"] },
+  { entityId: "phenom", domains: ["phenompeople.com"] },
+  { entityId: "paradox", domains: ["paradox.ai"] },
   { entityId: "eightfold", domains: ["eightfold.ai"] },
+  { entityId: "icims", domains: ["icims.com"] },
+  { entityId: "greenhouse", domains: ["greenhouse.io"] },
+  { entityId: "lever", domains: ["lever.co"] },
+  { entityId: "ashby", domains: ["ashbyhq.com"] },
+  { entityId: "smartrecruiters", domains: ["smartrecruiters.com"] },
+  { entityId: "deel", domains: ["deel.com"] },
+  { entityId: "remote", domains: ["remote.com"] },
+  { entityId: "rippling", domains: ["rippling.com"] },
+  { entityId: "hibob", domains: ["hibob.com"] },
+  { entityId: "personio", domains: ["personio.com"] },
+  { entityId: "lattice", domains: ["lattice.com"] },
+  { entityId: "culture-amp", domains: ["cultureamp.com"] },
+  { entityId: "visier", domains: ["visier.com"] },
+  { entityId: "josh-bersin", domains: ["joshbersin.com"] },
+  { entityId: "palantir", domains: ["palantir.com"] },
+  { entityId: "sierra", domains: ["sierra.ai"] },
+  { entityId: "decagon", domains: ["decagon.ai"] },
+  { entityId: "openai", domains: ["openai.com"] },
+  { entityId: "anthropic", domains: ["anthropic.com"] },
+  { entityId: "scale-ai", domains: ["scale.com"] },
+  { entityId: "salesforce", domains: ["salesforce.com"] },
+  { entityId: "servicenow", domains: ["servicenow.com"] },
   { entityId: "beisen", domains: ["beisen.com"] },
   { entityId: "moka", domains: ["mokahr.com"] },
-  { entityId: "palantir", domains: ["palantir.com"] },
+  { entityId: "moseeker", domains: ["moseeker.com"] },
+  { entityId: "liepin", domains: ["liepin.com"] },
+  { entityId: "boss-zhipin", domains: ["zhipin.com"] },
+  { entityId: "zhaopin", domains: ["zhaopin.com"] },
+  { entityId: "51job", domains: ["51job.com"] },
+  { entityId: "feishu-people", domains: ["feishu.cn"] },
+  { entityId: "dingtalk", domains: ["dingtalk.com"] },
 ];
 
 /** 原文里的这些写法也算提到了对应公司。 */
 export const IDENTITY_CONTEXT_ALIASES: ReadonlyArray<{ entityId: string; pattern: RegExp }> = [
-  { entityId: "meta", pattern: /@AIatMeta\b/i },
-  { entityId: "zhipu", pattern: /\bZhipu(?:\s+AI\b|['’]s\b)/i },
+  { entityId: "workday", pattern: /@Workday\b/i },
+  { entityId: "palantir", pattern: /@PalantirTech\b/i },
+  { entityId: "hibob", pattern: /@HiBob\b/i },
 ];

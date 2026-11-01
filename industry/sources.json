@@ -1,5 +1,5 @@
 {
-  "$comment": "HR 科技信源：首次启动时导入（scripts/seed.ts），已存在的不会被覆盖。之后在后台“信源”里新建、修改和暂停。字段说明见 docs/customize.md。",
+  "$comment": "HRFDE Hot 的示范信源：首次启动时导入（scripts/seed.ts），已存在的不会被覆盖。之后在后台“信源”里新建、修改和暂停。字段说明见 docs/customize.md。",
   "sources": [
     {
       "id": "rss-sap-news",
@@ -14,7 +14,7 @@
       "tier": "T1",
       "owner_entity_id": "sap",
       "participation_mode": "editorial",
-      "interval_minutes": 180,
+      "interval_minutes": 360,
       "tags": [
         "官方"
       ],
@@ -22,21 +22,123 @@
       "syndicate_fulltext": false
     },
     {
-      "id": "rss-hrdive-news",
-      "name": "HR Dive",
+      "id": "rss-icims-blog",
+      "name": "iCIMS Blog",
       "kind": "rss",
       "config": {
-        "feedUrl": "https://www.hrdive.com/feeds/news/",
+        "feedUrl": "https://www.icims.com/feed/",
         "_aihot": {
-          "initialBackfillLimit": 15
+          "initialBackfillLimit": 10
         }
       },
-      "tier": "T2",
-      "owner_entity_id": null,
+      "tier": "T1",
+      "owner_entity_id": "icims",
       "participation_mode": "editorial",
-      "interval_minutes": 120,
+      "interval_minutes": 360,
       "tags": [
-        "媒体"
+        "官方"
+      ],
+      "site_fulltext": false,
+      "syndicate_fulltext": false
+    },
+    {
+      "id": "rss-eightfold-blog",
+      "name": "Eightfold AI Blog",
+      "kind": "rss",
+      "config": {
+        "feedUrl": "https://eightfold.ai/blog/feed/",
+        "_aihot": {
+          "initialBackfillLimit": 10
+        }
+      },
+      "tier": "T1",
+      "owner_entity_id": "eightfold",
+      "participation_mode": "editorial",
+      "interval_minutes": 360,
+      "tags": [
+        "官方"
+      ],
+      "site_fulltext": false,
+      "syndicate_fulltext": false
+    },
+    {
+      "id": "rss-palantir-blog",
+      "name": "Palantir Blog",
+      "kind": "rss",
+      "config": {
+        "feedUrl": "https://blog.palantir.com/feed",
+        "_aihot": {
+          "initialBackfillLimit": 10
+        }
+      },
+      "tier": "T1",
+      "owner_entity_id": "palantir",
+      "participation_mode": "editorial",
+      "interval_minutes": 360,
+      "tags": [
+        "官方",
+        "FDE"
+      ],
+      "site_fulltext": false,
+      "syndicate_fulltext": false
+    },
+    {
+      "id": "rss-hibob-blog",
+      "name": "HiBob Blog",
+      "kind": "rss",
+      "config": {
+        "feedUrl": "https://www.hibob.com/blog/feed/",
+        "_aihot": {
+          "initialBackfillLimit": 8
+        }
+      },
+      "tier": "T1",
+      "owner_entity_id": "hibob",
+      "participation_mode": "editorial",
+      "interval_minutes": 360,
+      "tags": [
+        "官方"
+      ],
+      "site_fulltext": false,
+      "syndicate_fulltext": false
+    },
+    {
+      "id": "rss-sierra-blog",
+      "name": "Sierra Blog",
+      "kind": "rss",
+      "config": {
+        "feedUrl": "https://sierra.ai/rss.xml",
+        "_aihot": {
+          "initialBackfillLimit": 10
+        }
+      },
+      "tier": "T1",
+      "owner_entity_id": "sierra",
+      "participation_mode": "editorial",
+      "interval_minutes": 360,
+      "tags": [
+        "官方",
+        "FDE"
+      ],
+      "site_fulltext": false,
+      "syndicate_fulltext": false
+    },
+    {
+      "id": "rss-deel-blog",
+      "name": "Deel Blog",
+      "kind": "rss",
+      "config": {
+        "feedUrl": "https://www.deel.com/feed/",
+        "_aihot": {
+          "initialBackfillLimit": 8
+        }
+      },
+      "tier": "T1",
+      "owner_entity_id": "deel",
+      "participation_mode": "editorial",
+      "interval_minutes": 360,
+      "tags": [
+        "官方"
       ],
       "site_fulltext": false,
       "syndicate_fulltext": false
@@ -62,21 +164,196 @@
       "syndicate_fulltext": false
     },
     {
-      "id": "rss-eightfold-blog",
-      "name": "Eightfold AI Blog",
+      "id": "rss-hrdive-news",
+      "name": "HR Dive",
       "kind": "rss",
       "config": {
-        "feedUrl": "https://eightfold.ai/blog/feed/",
+        "feedUrl": "https://www.hrdive.com/feeds/news/",
+        "_aihot": {
+          "initialBackfillLimit": 15
+        }
+      },
+      "tier": "T2",
+      "owner_entity_id": null,
+      "participation_mode": "editorial",
+      "interval_minutes": 120,
+      "tags": [
+        "媒体"
+      ],
+      "site_fulltext": false,
+      "syndicate_fulltext": false
+    },
+    {
+      "id": "rss-ere-media",
+      "name": "ERE Media",
+      "kind": "rss",
+      "config": {
+        "feedUrl": "https://www.ere.net/feed/",
+        "_aihot": {
+          "initialBackfillLimit": 10
+        }
+      },
+      "tier": "T2",
+      "owner_entity_id": null,
+      "participation_mode": "editorial",
+      "interval_minutes": 180,
+      "tags": [
+        "媒体"
+      ],
+      "site_fulltext": false,
+      "syndicate_fulltext": false
+    },
+    {
+      "id": "rss-personneltoday",
+      "name": "Personnel Today",
+      "kind": "rss",
+      "config": {
+        "feedUrl": "https://www.personneltoday.com/feed/",
+        "_aihot": {
+          "initialBackfillLimit": 10
+        }
+      },
+      "tier": "T2",
+      "owner_entity_id": null,
+      "participation_mode": "editorial",
+      "interval_minutes": 180,
+      "tags": [
+        "媒体"
+      ],
+      "site_fulltext": false,
+      "syndicate_fulltext": false
+    },
+    {
+      "id": "rss-hrzone",
+      "name": "HRZone",
+      "kind": "rss",
+      "config": {
+        "feedUrl": "https://www.hrzone.com/rss",
+        "_aihot": {
+          "initialBackfillLimit": 10
+        }
+      },
+      "tier": "T2",
+      "owner_entity_id": null,
+      "participation_mode": "editorial",
+      "interval_minutes": 180,
+      "tags": [
+        "媒体"
+      ],
+      "site_fulltext": false,
+      "syndicate_fulltext": false
+    },
+    {
+      "id": "rss-employeebenefits",
+      "name": "Employee Benefits",
+      "kind": "rss",
+      "config": {
+        "feedUrl": "https://employeebenefits.co.uk/feed/",
         "_aihot": {
           "initialBackfillLimit": 8
         }
       },
       "tier": "T2",
-      "owner_entity_id": "eightfold",
+      "owner_entity_id": null,
+      "participation_mode": "editorial",
+      "interval_minutes": 240,
+      "tags": [
+        "媒体",
+        "福利"
+      ],
+      "site_fulltext": false,
+      "syndicate_fulltext": false
+    },
+    {
+      "id": "rss-hiringlab",
+      "name": "Indeed Hiring Lab",
+      "kind": "rss",
+      "config": {
+        "feedUrl": "https://www.hiringlab.org/feed/",
+        "_aihot": {
+          "initialBackfillLimit": 10
+        }
+      },
+      "tier": "T2",
+      "owner_entity_id": null,
       "participation_mode": "editorial",
       "interval_minutes": 360,
       "tags": [
-        "厂商"
+        "研究",
+        "劳动力市场"
+      ],
+      "site_fulltext": false,
+      "syndicate_fulltext": false
+    },
+    {
+      "id": "rss-littler",
+      "name": "Littler · 劳动法",
+      "kind": "rss",
+      "config": {
+        "feedUrl": "https://www.littler.com/rss.xml",
+        "_aihot": {
+          "initialBackfillLimit": 10
+        }
+      },
+      "tier": "T2",
+      "owner_entity_id": null,
+      "participation_mode": "editorial",
+      "interval_minutes": 360,
+      "tags": [
+        "政策",
+        "法律"
+      ],
+      "site_fulltext": false,
+      "syndicate_fulltext": false
+    },
+    {
+      "id": "rss-diginomica",
+      "name": "Diginomica",
+      "kind": "rss",
+      "config": {
+        "feedUrl": "https://diginomica.com/feed",
+        "_aihot": {
+          "initialBackfillLimit": 8
+        }
+      },
+      "tier": "T2",
+      "owner_entity_id": null,
+      "participation_mode": "editorial",
+      "interval_minutes": 240,
+      "tags": [
+        "分析"
+      ],
+      "site_fulltext": false,
+      "syndicate_fulltext": false
+    },
+    {
+      "id": "web-hrtechchina",
+      "name": "HRTechChina",
+      "kind": "web_list",
+      "config": {
+        "url": "https://www.hrtechchina.com/",
+        "baseUrl": "https://www.hrtechchina.com",
+        "parseMode": "html",
+        "itemSelector": "ul.tag-con > li.clearfix",
+        "linkSelector": "a.tag-caption",
+        "titleSelector": "a.tag-caption",
+        "publishedAtSelector": "span.tag-time-con",
+        "denyUrlPrefixes": [
+          "https://www.hrtechchina.com/category/",
+          "https://www.hrtechchina.com/tag/",
+          "https://www.hrtechchina.com/page/"
+        ],
+        "_aihot": {
+          "initialBackfillLimit": 12
+        }
+      },
+      "tier": "T2",
+      "owner_entity_id": null,
+      "participation_mode": "editorial",
+      "interval_minutes": 180,
+      "tags": [
+        "媒体",
+        "中文"
       ],
       "site_fulltext": false,
       "syndicate_fulltext": false
@@ -144,115 +421,6 @@
       "syndicate_fulltext": false
     },
     {
-      "id": "web-beisen-news",
-      "name": "北森 · 新闻动态",
-      "kind": "web_list",
-      "config": {
-        "url": "https://www.beisen.com/news/",
-        "baseUrl": "https://www.beisen.com",
-        "parseMode": "html",
-        "itemSelector": "a[href^=\"/news/\"]",
-        "titleSelector": ".info-box h3",
-        "publishedAtSelector": ".info-box .time",
-        "_aihot": {
-          "initialBackfillLimit": 10
-        }
-      },
-      "tier": "T1",
-      "owner_entity_id": "beisen",
-      "participation_mode": "editorial",
-      "interval_minutes": 360,
-      "tags": [
-        "官方",
-        "中文"
-      ],
-      "site_fulltext": false,
-      "syndicate_fulltext": false
-    },
-    {
-      "id": "rss-ere-media",
-      "name": "ERE Media",
-      "kind": "rss",
-      "config": {
-        "feedUrl": "https://www.ere.net/feed/",
-        "_aihot": {
-          "initialBackfillLimit": 10
-        }
-      },
-      "tier": "T2",
-      "owner_entity_id": null,
-      "participation_mode": "editorial",
-      "interval_minutes": 120,
-      "tags": [
-        "媒体"
-      ],
-      "site_fulltext": false,
-      "syndicate_fulltext": false
-    },
-    {
-      "id": "rss-workology",
-      "name": "Workology",
-      "kind": "rss",
-      "config": {
-        "feedUrl": "https://workology.com/feed/",
-        "_aihot": {
-          "initialBackfillLimit": 10
-        }
-      },
-      "tier": "T2",
-      "owner_entity_id": null,
-      "participation_mode": "editorial",
-      "interval_minutes": 360,
-      "tags": [
-        "媒体",
-        "观点"
-      ],
-      "site_fulltext": false,
-      "syndicate_fulltext": false
-    },
-    {
-      "id": "rss-icims-blog",
-      "name": "iCIMS Blog",
-      "kind": "rss",
-      "config": {
-        "feedUrl": "https://www.icims.com/feed/",
-        "_aihot": {
-          "initialBackfillLimit": 8
-        }
-      },
-      "tier": "T1",
-      "owner_entity_id": "icims",
-      "participation_mode": "editorial",
-      "interval_minutes": 360,
-      "tags": [
-        "厂商"
-      ],
-      "site_fulltext": false,
-      "syndicate_fulltext": false
-    },
-    {
-      "id": "rss-gartner-news",
-      "name": "Google News：Gartner HR",
-      "kind": "rss",
-      "config": {
-        "feedUrl": "https://news.google.com/rss/search?q=%22Gartner%22%20(HR%20OR%20%22human%20resources%22%20OR%20recruiting)&hl=en-US&gl=US&ceid=US:en",
-        "acceptLanguage": "en",
-        "_aihot": {
-          "initialBackfillLimit": 12
-        }
-      },
-      "tier": "T2",
-      "owner_entity_id": null,
-      "participation_mode": "editorial",
-      "interval_minutes": 180,
-      "tags": [
-        "研究机构",
-        "聚合"
-      ],
-      "site_fulltext": false,
-      "syndicate_fulltext": false
-    },
-    {
       "id": "json-hn-recruiting",
       "name": "HN：recruiting",
       "kind": "json_list",
@@ -270,7 +438,7 @@
         "publishedAtPath": "created_at",
         "externalIdPath": "objectID",
         "_aihot": {
-          "initialBackfillLimit": 10
+          "initialBackfillLimit": 8
         }
       },
       "tier": "T2",
@@ -301,7 +469,7 @@
         "publishedAtPath": "created_at",
         "externalIdPath": "objectID",
         "_aihot": {
-          "initialBackfillLimit": 10
+          "initialBackfillLimit": 8
         }
       },
       "tier": "T2",
@@ -332,7 +500,69 @@
         "publishedAtPath": "created_at",
         "externalIdPath": "objectID",
         "_aihot": {
-          "initialBackfillLimit": 10
+          "initialBackfillLimit": 8
+        }
+      },
+      "tier": "T2",
+      "owner_entity_id": null,
+      "participation_mode": "editorial",
+      "interval_minutes": 360,
+      "tags": [
+        "社区"
+      ],
+      "site_fulltext": false,
+      "syndicate_fulltext": false
+    },
+    {
+      "id": "json-hn-layoffs",
+      "name": "HN：layoffs",
+      "kind": "json_list",
+      "config": {
+        "url": "https://hn.algolia.com/api/v1/search?query=layoffs&tags=story",
+        "mode": "json_api",
+        "itemsPath": "hits",
+        "titlePaths": [
+          "title"
+        ],
+        "summaryPaths": [
+          "story_text"
+        ],
+        "urlTemplate": "https://news.ycombinator.com/item?id={raw:objectID}",
+        "publishedAtPath": "created_at",
+        "externalIdPath": "objectID",
+        "_aihot": {
+          "initialBackfillLimit": 8
+        }
+      },
+      "tier": "T2",
+      "owner_entity_id": null,
+      "participation_mode": "editorial",
+      "interval_minutes": 360,
+      "tags": [
+        "社区"
+      ],
+      "site_fulltext": false,
+      "syndicate_fulltext": false
+    },
+    {
+      "id": "json-hn-workforce",
+      "name": "HN：workforce",
+      "kind": "json_list",
+      "config": {
+        "url": "https://hn.algolia.com/api/v1/search?query=workforce&tags=story",
+        "mode": "json_api",
+        "itemsPath": "hits",
+        "titlePaths": [
+          "title"
+        ],
+        "summaryPaths": [
+          "story_text"
+        ],
+        "urlTemplate": "https://news.ycombinator.com/item?id={raw:objectID}",
+        "publishedAtPath": "created_at",
+        "externalIdPath": "objectID",
+        "_aihot": {
+          "initialBackfillLimit": 8
         }
       },
       "tier": "T2",

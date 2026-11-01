@@ -1,13 +1,14 @@
 {
-  "latestVersion": "2026-10-01T08:00",
+  "latestVersion": "2026-10-20T08:00",
   "releases": [
     {
-      "date": "2026-10-01",
+      "date": "2026-10-20",
       "time": "08:00",
       "kind": "公告",
-      "title": "网站上线",
+      "title": "HRFDE Hot 上线",
       "body": [
-        "用 AIHOT 开源框架搭起了这个站：自动盯住信源、精选、把同一件事归到一起，每天出一份日报。"
+        "开始追踪 HR 科技、FDE（Forward Deployed Engineer）、招聘、裁员、组织与人事变化。",
+        "每天 08:00 出一份日报，往期在网站上按日期归档。"
       ]
     }
   ]

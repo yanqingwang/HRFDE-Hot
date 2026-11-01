@@ -8,38 +8,40 @@
 
 ## 内容类型
 
-`itemType` 必须七选一：
+`itemType` 必须九选一：
 
-- `model_release`：新模型或大版本更新
-- `product_launch`：新产品、工具或重大功能更新
-- `tool_or_prompt`：可直接复用的方法、Prompt、Skill 或技巧
-- `research_paper`：论文、研究或技术报告
-- `industry_event`：融资、收购、监管、诉讼、商业动作或人事
-- `opinion_analysis`：观点、行业判断、复盘或长访谈
-- `tutorial_explainer`：教程、科普、解读或评测
+- `fde_role`：FDE（Forward Deployed Engineer）及相关客户现场交付角色的岗位、团队、职责、招聘要求、薪酬、职业路径、交付方法或组织模式。
+- `hr_tech_launch`：HR 科技产品、平台、功能、集成、采购、替换或厂商服务更新，包括 HRIS/HCM、ATS、招聘、薪酬、福利、绩效、学习、员工体验、劳动力分析和全球用工。
+- `job_change`：已发生的招聘计划、裁员、招聘冻结、业务重组、岗位迁移、人才争夺或招聘市场变化。
+- `leadership_change`：已发生的高管、CHRO/CPO、HR 负责人、FDE/交付负责人变动，或组织架构、办公模式、人事政策变化。
+- `business_event`：HR/FDE 相关公司的融资、并购、合作、经营、诉讼或市场竞争，且与产品、组织或人才变化有关。
+- `policy_compliance`：劳动法、就业与招聘监管、薪酬透明、签证与全球用工、工会、员工隐私、HR 场景 AI 合规，以及已经生效或进入明确程序的判例、处罚和官方指引。
+- `research_report`：以劳动力市场、招聘、薪酬、员工体验、组织效能、FDE/交付工程为核心的研究报告、调查、数据集、基准或系统性分析。
+- `practice_guide`：读者可以照着用的 HR 操作、招聘流程、HRIS 实施、薪酬与绩效设计、FDE 交付方法、面试准备、职业转型或团队搭建复盘。
+- `opinion_analysis`：观点、行业判断、预测、复盘、访谈或评论。
 
-优先级：发了模型选 model_release；发了工具选 product_launch；发了 Prompt 或方法选 tool_or_prompt；论文优先 research_paper；评测选 tutorial_explainer。原文把发布写成过去的事、本条在讲用法或做演示时，不算本次发布，选 tutorial_explainer。
+优先级：有具体岗位/团队/交付动作选 `fde_role`；发了 HR 产品选 `hr_tech_launch`；有招聘/裁员动作选 `job_change`；高管或组织变化选 `leadership_change`；融资并购/经营事件选 `business_event`；政策法规选 `policy_compliance`；研究报告优先 `research_report`；可复用做法选 `practice_guide`；只有判断和态度选 `opinion_analysis`。原文把发布写成过去的事、本条在讲用法或做演示时，不算本次发布，选 `practice_guide`。
 
-输出前检查 `itemType` 与第一个分类标签是否自洽：`model_release` 对应“模型发布”，`product_launch` 对应“产品更新”，`research_paper` 对应“论文/研究”，`industry_event` 对应“行业动态”或“政策/监管”，`opinion_analysis` 对应“大佬观点”或“现象/趋势”，`tutorial_explainer` 对应“教程/实践”或“评测/基准”。如果二者冲突，按当前材料的核心事件修正后再输出。
+输出前检查 `itemType` 与第一个分类标签是否自洽：`fde_role` 对应“FDE/交付”，`hr_tech_launch` 对应“HR科技”，`job_change` 对应“招聘/裁员”，`leadership_change` 对应“组织/人事”，`business_event` 对应“行业/商业”或“融资/并购”，`policy_compliance` 对应“政策/合规”，`research_report` 对应“研究/报告”，`practice_guide` 对应“实践/教程”，`opinion_analysis` 对应“观点/评论”。如果二者冲突，按当前材料的核心事件修正后再输出。
 
 ## 作者角色
 
 `authorRole` 必须三选一，回答“这条内容的信息源头是不是作者本人”：
 
-- `principal`：作者本人或所属组织就是当事方，例如官方账号发布自家产品、员工宣布或说明自家产品。
+- `principal`：作者本人或所属组织就是当事方，例如官方账号发布自家产品、员工宣布或说明自家产品、公司发布裁员计划。
 - `observer`：作者以第一手身份独立实测、亲历、原创分析或产出原创方法。
 - `relayer`：作者在转发、引用、翻译或归纳他人信息。主体信息来自引用块时选 relayer。
 
 ## 标签
 
-`tags` 输出 1–6 个字符串。第一个必须从以下分类标签中选一个：模型发布、产品更新、开源/仓库、论文/研究、教程/实践、大佬观点、评测/基准、安全/对齐、现象/趋势、行业动态、政策/监管、非AI/通用工具、其他。
+`tags` 输出 1–6 个字符串。第一个必须从以下分类标签中选一个：FDE/交付、HR科技、招聘/裁员、组织/人事、行业/商业、融资/并购、政策/合规、研究/报告、实践/教程、观点/评论、薪酬/福利、员工体验、其他。
 
 其后可选 0–5 个适用标签，并且只能来自以下两个白名单：
 
-- 主题：Agent、编码、推理、多模态、语音、视频、图像生成、RAG、端侧、数据/训练、搜索、部署/工程、开源生态、具身智能、MCP/工具调用
-- 实体：OpenAI、Anthropic、DeepSeek、DeepMind、Google、Meta、Microsoft、xAI、Hugging Face、GitHub、arXiv
+- 主题：FDE、交付工程、客户成功、解决方案、HRIS、HCM、ATS、招聘、人才获取、薪酬、福利、绩效、学习发展、员工体验、组织发展、劳动力分析、HRBP、全球用工、远程/混合办公、合规、裁员、技能转型、管理者、雇主品牌、内部流动、AI招聘、职业转型
+- 实体：Workday、SAP SuccessFactors、Oracle HCM、ADP、Dayforce、Cornerstone、Phenom、Paradox、Eightfold、iCIMS、Greenhouse、Lever、Ashby、SmartRecruiters、Deel、Remote、Rippling、HiBob、Personio、Lattice、Culture Amp、Visier、Palantir、Sierra、Decagon、OpenAI、Anthropic、Scale AI、Salesforce、ServiceNow、北森、Moka、仟寻、猎聘、BOSS直聘、智联招聘、前程无忧、飞书 People、钉钉
 
-正文中即使明确出现了 NVIDIA、Apple、阿里等其他实体，也不要把它们放进 `tags`。不要创造白名单之外的标签。没有适用的主题或实体时，只返回第一个分类标签；例如学校限制 AI 使用的监管新闻，不需要强行归到“编码”或“推理”。
+正文中即使明确出现了其他公司，也不要把它们放进 `tags`。不要创造白名单之外的标签。没有适用的主题或实体时，只返回第一个分类标签；例如一条只有裁员数字、没有 HR 科技产品信息的新闻，不需要强行归到“HRIS”。
 
 ## 候选阅读价值
 
@@ -51,12 +53,12 @@
 
 ## 中文标题和摘要
 
-`titleZh` 必须是自洽的中文标题，包含事件主体以及动作或结果。保留必要的模型名、产品名、版本号、机构名和关键数字，不写“最新动态”“引发关注”等空话。原标题已经是中文时也要保证脱离来源名后仍能独立理解。
+`titleZh` 必须是自洽的中文标题，包含事件主体以及动作或结果。保留必要的公司名、产品名、岗位名、机构名和关键数字，不写“最新动态”“引发关注”等空话。原标题已经是中文时也要保证脱离来源名后仍能独立理解。
 
-`summaryZh` 必须忠实使用当前材料。短 X 推文完整翻译作者自己的主推文；长推文或文章先写核心事实，再写一层关键细节或影响。保留关键数字、版本、机构、模型和 URL；引用内容只作上下文，不冒充主推作者自己的话。
+`summaryZh` 必须忠实使用当前材料。短帖完整翻译作者自己的主帖；长文先写核心事实，再写一层关键细节或影响。保留关键数字、岗位、公司、产品、地区、时间和 URL；引用内容只作上下文，不冒充主帖作者自己的话。
 
-图片只能补充清晰可见、与正文直接相关的事实。忽略头像、品牌图、装饰图、模糊内容和与正文重复的信息。不得仅凭图片猜测人物身份、地点、时间、因果、性能或产品能力；图文冲突时不得擅自裁决。
+图片只能补充清晰可见、与正文直接相关的事实。忽略头像、品牌图、装饰图、模糊内容和与正文重复的信息。不得仅凭图片猜测人物身份、地点、时间、因果、薪酬或组织变化；图文冲突时不得擅自裁决。
 
 只返回合法 JSON，不要 Markdown，不要解释。顶层必须且只能包含以下六个字段：
 
-{"itemType":"product_launch","authorRole":"principal","tags":["产品更新","Agent"],"editorialJudgment":"原文给出了能力变化和开放入口，读者可以据此判断它会怎样改变现有工作流。","titleZh":"某产品发布智能体功能","summaryZh":"某产品发布新的智能体功能，给出了开放入口和主要能力变化。"}
+{"itemType":"fde_role","authorRole":"principal","tags":["FDE/交付","FDE","Palantir"],"editorialJudgment":"原文给出了团队职责和客户场景，读者可以据此判断 FDE 在交付中的实际边界。","titleZh":"Palantir 扩充前线部署工程师团队","summaryZh":"Palantir 宣布扩充前线部署工程师团队，并说明新团队将覆盖哪些客户场景和交付职责。"}
