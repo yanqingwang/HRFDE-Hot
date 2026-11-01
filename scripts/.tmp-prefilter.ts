@@ -53,6 +53,7 @@ for (const model of models) {
     let parsed: Record<string, unknown> | null = null;
     try { parsed = JSON.parse(/\{[\s\S]*\}/.exec(text)?.[0] ?? "null") as Record<string, unknown> | null; } catch { parsed = null; }
     const label = String(parsed?.label ?? "").toUpperCase();
+    if (model.includes("GLM")) console.log(JSON.stringify({ raw: text.slice(0, 300), parsed, label }));
     if (["PASS", "BLOCK", "UNKNOWN"].includes(label)) { ok++; labels.push(label); }
     else if (parsed) { missing++; labels.push("MISSING"); }
     else { bad++; labels.push("BADJSON"); }
