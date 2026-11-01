@@ -1,0 +1,32 @@
+name: Debug stats
+on:
+  workflow_dispatch:
+jobs:
+  stats:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Query recent collection and analysis
+        env:
+          DATABASE_URL: ${{ secrets.DATABASE_URL }}
+        run: |
+          psql "$DATABASE_URL" -P pager=off -c "
+            SELECT s.id,
+                   count(*) FILTER (WHERE a.fetched_at > now() - interval '6 hours') AS fetched_6h,
+                   count(an.id) FILTER (WHERE an.created_at > now() - interval '6 hours') AS analyzed_6h,
+                   count(an.id) FILTER (WHERE an.created_at > now() - interval '6 hours' AND an.relevance = 'pass') AS pass_6h,
+                   count(an.id) FILTER (WHERE an.created_at > now() - interval '6 hours' AND an.selected) AS selected_6h
+            FROM sources s
+            LEFT JOIN articles a ON a.source_id = s.id
+            LEFT JOIN analyses an ON an.article_id = a.id
+            GROUP BY s.id
+            ORDER BY fetched_6h DESC, s.id;"
+          psql "$DATABASE_URL" -P pager=off -c "
+            SELECT s.id, an.relevance, an.selected, round(avg(an.score),1) AS avg_score, count(*) AS n
+            FROM analyses an JOIN articles a ON a.id = an.article_id JOIN sources s ON s.id = a.source_id
+            WHERE an.created_at > now() - interval '6 hours'
+            GROUP BY s.id, an.relevance, an.selected ORDER BY s.id, an.relevance;"
+          psql "$DATABASE_URL" -P pager=off -c "
+            SELECT s.id, round(an.score,1) AS score, an.relevance, an.selected, left(coalesce(an.title_zh, a.title), 60) AS title
+            FROM analyses an JOIN articles a ON a.id = an.article_id JOIN sources s ON s.id = a.source_id
+            WHERE an.created_at > now() - interval '6 hours' AND an.relevance = 'pass'
+            ORDER BY an.score DESC NULLS LAST LIMIT 40;"
