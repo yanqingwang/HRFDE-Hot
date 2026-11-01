@@ -26,7 +26,7 @@ jobs:
             WHERE an.created_at > now() - interval '6 hours'
             GROUP BY s.id, an.relevance, an.selected ORDER BY s.id, an.relevance;"
           psql "$DATABASE_URL" -P pager=off -c "
-            SELECT s.id, round(an.score,1) AS score, an.relevance, an.selected, left(coalesce(an.title_zh, a.title), 60) AS title
+            SELECT s.tier, s.id, round(an.score,1) AS score, an.selected, left(a.title, 70) AS title
             FROM analyses an JOIN articles a ON a.id = an.article_id JOIN sources s ON s.id = a.source_id
-            WHERE an.created_at > now() - interval '6 hours' AND an.relevance = 'pass'
+            WHERE an.created_at > now() - interval '24 hours' AND an.relevance = 'pass' AND an.score IS NOT NULL
             ORDER BY an.score DESC NULLS LAST LIMIT 40;"
