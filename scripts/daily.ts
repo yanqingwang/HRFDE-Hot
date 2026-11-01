@@ -2,7 +2,7 @@
 // 采集、内容理解、精选评分和归组由 worker 完成（见 .github/workflows/daily.yml），这里只成刊 + 落盘。
 //   node scripts/daily.ts              当天（按 site.ts 的 EDITION_TIMES.daily 判定）
 //   node scripts/daily.ts 2026-10-22   指定一期
-import { appendFileSync, existsSync, mkdirSync, writeFileSync } from "node:fs";
+import { appendFileSync, existsSync, mkdirSync, readFileSync, writeFileSync } from "node:fs";
 import path from "node:path";
 import { REPO_ROOT } from "@aihot/backend/config";
 import { closeDb, sql } from "@aihot/backend/db";
@@ -95,6 +95,12 @@ if (!existsSync(file)) {
       "",
     ].join("\n"),
   );
+}
+// 手动补跑一次已写过的日期时不重复追加：读者看到的是按日期一节一节的汇编。
+if (existsSync(file) && readFileSync(file, "utf8").includes(`## ${report.date}（`)) {
+  console.log(JSON.stringify({ level: "info", msg: "report already written", file, date }));
+  await closeDb();
+  process.exit(0);
 }
 appendFileSync(file, `${lines.join("\n")}\n---\n\n`);
 
